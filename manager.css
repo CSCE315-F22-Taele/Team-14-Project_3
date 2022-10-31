@@ -59,3 +59,10 @@ body{
     color:white;
     font-size:20px;
 }
+button:hover{
+    transform:translateY(-5px);
+}
+.item_btn:active{
+    background-color:rgb(0, 125, 0);
+    color:white;
+}
