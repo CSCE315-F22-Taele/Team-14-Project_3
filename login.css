@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Epilogue', sans-serif;
+    font-size: 0.875rem;
+    background-color:rgb(0, 0, 0);
+    background-image: url('./Pom&honeyhero.webp');
+    background-size:cover;
+    height:100vh;
+    backdrop-filter: brightness(0.5);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.login_card{
+    background-color:white;
+    border-radius:1rem;
+    width:450px;
+    box-shadow:0 0 50px 5px hsl(229deg 27% 23% / 52%);
+}
+.title{
+    padding: 25px 0px;
+    border-bottom:2px solid silver;
+    text-align:center;
+    font-size:2rem;
+    letter-spacing:2px;
+}
+.login_card form{
+    padding:0 40px;
+}
+.text_field{
+    border-bottom:2px solid #adadad;
+    margin:45px 0;
+    position:relative;
+}
+.text_field input{
+    width:100%;
+    padding:0 5px;
+    height:45px;
+    font-size:1rem;
+    border:none;
+    outline:none;
+    background:none;
+}
+.text_field label{
+    position:absolute;
+    top:50%;
+    left:5px;
+    transform:translateY(-50%);
+    color:#adadad;
+    pointer-events:none;
+    font-size:17px;
+    transition:0.25s;
+}
+.text_field span::before{
+    content:'';
+    position:absolute;
+    top:45px;
+    left:0;
+    width:0;
+    height:2px;
+    background:#2691d9;
+    transition:0.25;
+}
+.text_field input:focus ~ label, .text_field input:valid ~label{
+    top:-5px;
+    color:#2691d9;
+}
+.text_field input:focus ~ span::before, .text_field input:valid ~span::before{
+    width:100%;
+}
+input[type="submit"]{
+    border-radius:5px;
+    border:none;
+    font-size:1.125rem;
+    width:100%;
+    height:55px;
+    background:#2691d9;
+    margin-bottom:40px;
+    color:white;
+}
+.customer{
+    margin-top:1.75rem;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    gap:1.25rem;
+}
+.customer_text{
+    font-size:1.5rem;
+    color:white;
+}
+.order_btn{
+    padding:0.7rem 1.25rem;
+    border-radius:0.5em;
+    border:none;
+    font-size:1.3rem;
+    color:black;
+    box-shadow:-5px 5px 25px 4px rgb(0 0 0 / 40%) inset;
+}
+.order_btn:hover{
+    transform:scale(1.04);
+    color:white;
+    background-color:green;
+}

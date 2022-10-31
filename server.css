@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Epilogue', sans-serif;
+    font-size: 0.875rem;
+    /*background-color:rgb(192, 192, 192); */
+
+    /*background-image: linear-gradient(to right bottom, #c0c0c0, #c0bfc8, #bebfd0, #babfd8, #b5c0e1, #aec3e6, #a6c6eb, #9ccaee, #95d0ec, #92d6e7, #95dae1, #9cded9);*/
+    /*background-image: linear-gradient(to right top, #06beb6, #47c6c3, #69cdcf, #86d5d9, #a1dce2, #a3dbe2, #a5dae1, #a7d9e1, #92cfd8, #7cc5d0, #64bbc7, #48b1bf); */
+    background-image: linear-gradient(to right top, #c0c0c0, #c3c3c3, #c6c6c6, #cacaca, #cdcdcd, #d0d0d1, #d4d2d4, #d9d5d7, #e1d7d8, #e7dbd6, #e9dfd4, #e5e5d5);
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    padding:8rem 9rem 0 9rem;
+}
+.content_wrapper{
+    display:flex;
+    justify-content:space-between;
+}
+.options{
+    display:flex;
+    flex-direction:column;
+    gap:4rem;
+
+}
+.label{
+    font-size:2.2rem;
+}
+.button_wrapper{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:40px;
+    padding:1.5rem 2rem;
+}
+#topping_wrapper{
+    max-width:1100px;
+}
+.item_btn{
+    padding:1rem 1.7rem;
+    border-radius:0.5em;
+    border:none;
+    font-size:1.3rem;
+    color:black;
+    box-shadow: -16px 21px 23px -5px rgba(0,0,0,0.71);
+}
+button:hover{
+    transform:translateY(-5px);
+}
+.item_btn:active{
+    background-color:rgb(0, 125, 0);
+    color:white;
+}
+.nav_bar{
+    margin-top:7rem;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+#starter_nav{
+    margin-top:7rem;
+}
+.nav_btn{
+    padding:1.25rem 2rem;
+    border-radius:0.5em;
+    border:none;
+    font-size:1.3rem;
+    color:black;
+    box-shadow: -16px 21px 23px -5px rgba(0,0,0,0.71);
+}
+#back{
+    background-color:rgb(160, 8, 8);
+    color:white;
+    font-size:20px;
+}
+#proceed{
+    background-color:rgb(3, 102, 3);
+    color:white;
+    font-size:20px;
+}
+.cart{
+    background-color:black;
+    color:white;
+    width:200px;
+    height:550px;
+    border-radius:10px;
+}
+.title{
+    padding:20px;
+    border-bottom:2px solid white;
+}
