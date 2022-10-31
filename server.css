@@ -50,8 +50,9 @@ body{
 }
 button:hover{
     transform:translateY(-5px);
+    cursor:pointer;
 }
-.item_btn:active{
+.active{
     background-color:rgb(0, 125, 0);
     color:white;
 }
@@ -100,7 +101,9 @@ button:hover{
     color:black;
     height:480px;
     border-radius:0 0 10px 10px;
-    padding:10px;
-    font-size:17px;
-    overflow:hidden;
+    padding:15px 10px 10px 10px;
+    font-size:19px;
+    overflow-x:hidden;
+    overflow-y: auto;
+    text-align:center;
 }

@@ -105,4 +105,5 @@ input[type="submit"]{
     transform:scale(1.04);
     color:white;
     background-color:green;
+    cursor:pointer;
 }
