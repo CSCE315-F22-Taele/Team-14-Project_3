@@ -30,17 +30,17 @@ app.get('/', (req, res) => {
     res.render('index', data);
 });
 
-app.get('/user', (req, res) => {
-    teammembers = []
+app.get('/servers', (req, res) => {
+    servers = []
     pool
-        .query('SELECT * FROM teammembers;')
+        .query('SELECT \"Server Name\" FROM \"Servers\";')
         .then(query_res => {
             for (let i = 0; i < query_res.rowCount; i++){
-                teammembers.push(query_res.rows[i]);
+                servers.push(query_res.rows[i]);
             }
-            const data = {teammembers: teammembers};
-            console.log(teammembers);
-            res.render('user', data);        
+            const data = {servers: servers};
+            console.log(servers);
+            res.render('servers', data);        
         });
 });
 

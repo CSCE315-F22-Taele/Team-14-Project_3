@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>Servers</h1>
+    <% for (var i in servers) {%>
+        <p>Name: <%=servers[i].Server_Name%>, ID: <%=servers[i].ID%></p>
+    <% } %>
+</body>
