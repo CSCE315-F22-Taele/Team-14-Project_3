@@ -7,7 +7,10 @@ buttons.forEach(button => {
         if(count==1){
            document.getElementById('cart_content').innerHTML ="";   
         }
-        document.getElementById('cart_content').innerHTML += this.innerHTML + "\n";  
+        //document.getElementById('cart_content').innerHTML += this.innerHTML;
+        document.getElementById('cart_content').innerHTML += `
+             <div class="order_content" id="cart_content">${this.innerHTML}</div>
+        `;  
         count++; 
     });
 });

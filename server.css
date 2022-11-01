@@ -96,7 +96,7 @@ button:hover{
     border-bottom:2px solid white;
     text-align:center;
 }
-.order_content{
+.order_contents_wrapper{
     background-color:white;
     color:black;
     height:480px;
@@ -106,4 +106,7 @@ button:hover{
     overflow-x:hidden;
     overflow-y: auto;
     text-align:center;
+}
+.order_content{
+    padding-bottom:10px;
 }
