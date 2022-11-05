@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starters & Drinks</title>
+    <link rel="icon" type="img/png" size="32x32" href="P&H logo.png"/>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Epilogue:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="server.css" id="page_style"/>
+</head>
+<body>
+    <div class="content_wrapper">
+        <div class="options">
+          <div class="section">
+            <h1 class="label">Select your starter:</h1>
+            <div class="button_wrapper">
+              <button class ="item_btn">None</button>
+              <button class ="item_btn">2 Falafels</button>
+              <button class ="item_btn">Hummus & Pita</button>
+              <button class ="item_btn">Vegan Box</button>
+              <button class ="item_btn">Garlic Fries</button>
+            </div>
+          </div>                
+          <div class="section">
+            <h1 class="label">Select your drink:</h1>
+            <div class="button_wrapper">
+              <button class ="item_btn">None</button>
+              <button class ="item_btn">Bottled Water</button>
+              <button class ="item_btn">Bottled Soda</button>
+              <button class ="item_btn">Fountain Soda</button>
+            </div>
+          </div>
+        </div>
+        <div class="cart">
+            <h1 class="title">Order Cart</h1>
+            <div class="order_contents_wrapper">
+              <div class="order_content" id="cart_content">Your cart is currently empty!</div>
+              <!-- <div class="order_contents" id="cart_content">Your cart is currently empty!</div> -->
+            </div>
+            
+        </div>
+    </div>
+    <div class="nav_bar" id = "starter_nav">
+        <a href="topping.html"><button class="nav_btn" id="back">Back to Toppings & Dressings</button></a>
+        <a href="placeorder.html"><button class="nav_btn" id="proceed">Proceed to Checkout</button></a>
+     </div>
+     <script src="client.js"></script>
+</body>
+</html>

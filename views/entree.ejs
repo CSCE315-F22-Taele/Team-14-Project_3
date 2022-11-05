@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entrees, Proteins, Combo</title>
+    <link rel="icon" type="img/png" size="32x32" href="P&H logo.png"/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="server.css" id="page_style" />
+  </head>
+  <body>
+    <div class="content_wrapper">
+      <div class="options">
+        <div class="section">
+          <h1 class="label">Select your entree:</h1>
+          <div class="button_wrapper">
+            <button class="item_btn">Grain Bowl</button>
+            <button class="item_btn">Salad</button>
+            <button class="item_btn">Pita</button>
+            <button class="item_btn">Greens & Grains</button>
+          </div>
+        </div>
+
+        <div class="section">
+          <h1 class="label">Select your protein:</h1>
+          <div class="button_wrapper">
+            <button class="item_btn">Gyro</button>
+            <button class="item_btn">Falafel</button>
+            <button class="item_btn">Vegetable Medley</button>
+            <button class="item_btn">Meatballs</button>
+            <button class="item_btn">Chicken</button>
+          </div>
+        </div>
+
+        <div class="section">
+          <h1 class="label">Or choose a combo:</h1>
+          <div class="button_wrapper">
+            <button class="item_btn" id="combo">Gyro Combo</button>
+          </div>
+        </div>
+      </div>
+      <div class="cart">
+        <h1 class="title">Order Cart</h1>
+        <div class="order_contents_wrapper">
+          <div class="order_content" id="cart_content">Your cart is currently empty!</div>
+          <!-- <div class="order_contents" id="cart_content">Your cart is currently empty!</div> -->
+        </div>
+        
+    </div>
+    </div>
+    <div class="nav_bar">
+      <a href="login.html"><button class="nav_btn" id="back">Back to Login</button></a>
+      <a href="topping.html"><button class="nav_btn" id="proceed">Proceed to Toppings & Dressings</button></a>
+    </div>
+    <script src="client.js"></script>
+  </body>
+</html>
