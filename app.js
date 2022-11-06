@@ -11,6 +11,11 @@ const port = 3000;
 //     res.setHeader('Content-Type','text/plain');
 //     res.end("hello world");
 // });
+
+
+
+
+
 app.use(express.static(__dirname + '/public'));
 app.set("view engine", "ejs");
 
@@ -41,5 +46,5 @@ app.get('/placeorder', (req, res) => {
 //app.use('/public', express.static('public'));
 
 app.listen(port, hostname, () => {
-    console.log('Server running at http://localhost:${port}/');
+    console.log(`Example app listening at http://localhost:${port}`);
 });
