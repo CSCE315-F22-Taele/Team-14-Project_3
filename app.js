@@ -1,8 +1,12 @@
 // const { appendFile } = require('fs');
 // const http = require('http');
+
+//create express app
 const express = require('express');
 const app = express();
 const session = require('express-session');
+const { Pool } = require('pg');
+const dotenv = require('dotenv').config();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
@@ -11,6 +15,23 @@ const GOOGLE_ClIENT_ID = '625697344229-lehp84g2idbdpus8u4giv5h3dg9caaaj.apps.goo
 const GOOGLE_CLIENT_SECRET = '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';
 const hostname = 'localhost';
 const port = 3000;
+
+//create pool
+const pool = new Pool({
+    user: process.env.PSQL_USER,
+    host: process.env.PSQL_HOST,
+    database: process.env.PSQL_DATABASE,
+    password: process.env.PSQL_PASSWORD,
+    port: process.env.PSQL_PORT,
+    ssl: {rejectUnauthorized: false}
+});
+
+//add process hook to shutdown pool
+process.on('SIGINT', function() {
+    pool.end();
+    console.log('Application successfully shutdown');
+    process.exit(0);
+})
 
 
 // Create a server object and pass an arrow function
@@ -58,7 +79,8 @@ passport.use(new GoogleStrategy({
 ));
 
 app.get('/auth/google', 
-    passport.authenticate('google', {scope : ['profile', 'email'] }));
+    passport.authenticate('google', {scope : ['profile', 'email'] })
+);
 
 app.get('/auth/google/callback',
     passport.authenticate('google', {failureRedirect: '/error'}),
@@ -89,8 +111,20 @@ app.get('/topping', (req, res) => {
     res.render('topping');
 });
 app.get('/placeorder', (req, res) => {
-    res.render('placeorder');
+    servers = []
+    pool
+        .query('SELECT \"Server Name\" as \"ServerName\" FROM \"Servers\";')
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++){
+                servers.push(query_res.rows[i]);
+            }
+            const data = {servers: servers};
+            console.log(servers);
+            res.render('placeorder', data);
+        });
 });
+
+
 
 //app.use('/public', express.static('public'));
 

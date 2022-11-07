@@ -25,17 +25,19 @@ process.on('SIGINT', function() {
 
 app.set("view engine", "ejs");
 
-app.get('/servers', (req, res) => {
+//app.get('/', (req,res))
+
+app.get('/', (req, res) => {
     servers = []
     pool
-        .query('SELECT \"Server Name\" FROM \"Servers\";')
+        .query('SELECT * FROM \"Servers\";')
         .then(query_res => {
             for (let i = 0; i < query_res.rowCount; i++){
                 servers.push(query_res.rows[i]);
             }
             const data = {servers: servers};
             console.log(servers);
-            res.render('servers', data);        
+            res.render('index', data);        
         });
 });
 
