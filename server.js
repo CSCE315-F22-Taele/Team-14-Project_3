@@ -27,6 +27,19 @@ app.set("view engine", "ejs");
 
 //app.get('/', (req,res))
 
+/*app.get('/', (req, res) => {
+    servers = []
+    pool
+        .query('SELECT * FROM \"Servers\";')
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++){
+                servers.push(query_res.rows[i]);
+            }
+            const data = {servers: servers};
+            console.log(servers);
+            res.render('index', data);        
+        });
+});*/
 app.get('/', (req, res) => {
     servers = []
     pool
@@ -40,7 +53,6 @@ app.get('/', (req, res) => {
             res.render('index', data);        
         });
 });
-
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
