@@ -8,6 +8,8 @@ const app = express();
 const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
 const session = require('express-session');
+const passport = require('passport');
+var userProfile;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const GOOGLE_ClIENT_ID = '625697344229-lehp84g2idbdpus8u4giv5h3dg9caaaj.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET = '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';
@@ -62,7 +64,7 @@ process.on('SIGINT', function() {
 // });
 
 app.use(express.static(__dirname + '/public'));
-app.use(passprt.initialize());
+app.use(passport.initialize());
 app.use(passport.session());
 
 app.set("view engine", "ejs");
@@ -109,8 +111,8 @@ app.get('/placeorder', (req, res) => {
 
 app.get('/placeorder',(req,res)=> {
     Entrees =["Grain Bowl","Salad","Pita","Green & Grains"]
-    Protein =["Gyro","Falafel","Vegetable Medley","Meatballs"]
-    Toppings =["Pickled Onions", "Diced Cucumbers","Citris Couscous","Roasted Cauliflower","Tomato-Onion"]
+    Protein =["Gyro","Falafel","Vegetable Medley","Meatballs"]//need to finish toppings list
+    Toppings =["Pickled Onions", "Diced Cucumbers","Citris Couscous","Roasted Cauliflower","Tomato-Onion Salad"]
 });
 
 app.get('/success', (req, res) => res.send(userProfile));
