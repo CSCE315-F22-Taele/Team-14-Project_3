@@ -8,21 +8,21 @@ const app = express();
 const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
 const session = require('express-session');
-const passport = require('passport');
-var userProfile;
+// const passport = require('passport');
+// var userProfile;
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const GOOGLE_ClIENT_ID = '625697344229-lehp84g2idbdpus8u4giv5h3dg9caaaj.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET = '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';
-passport.use(new GoogleStrategy({
-        clientID: GOOGLE_ClIENT_ID,
-        clientSecret: GOOGLE_CLIENT_SECRET,
-        callbackURL: "http://localhost:3000/auth/google/callback"
-    },
-    function(accessToken, refreshToken, profile, done) {
-        userProfile = profile;
-        return done(null, userProfile);
-    }
-));
+// passport.use(new GoogleStrategy({
+//         clientID: GOOGLE_ClIENT_ID,
+//         clientSecret: GOOGLE_CLIENT_SECRET,
+//         callbackURL: "http://localhost:3000/auth/google/callback"
+//     },
+//     function(accessToken, refreshToken, profile, done) {
+//         userProfile = profile;
+//         return done(null, userProfile);
+//     }
+// ));
 
 const hostname = 'localhost';
 const port = 3000;
@@ -64,16 +64,16 @@ process.on('SIGINT', function() {
 // });
 
 app.use(express.static(__dirname + '/public'));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.set("view engine", "ejs");
 
-app.use(session({
-    resave: false,
-    saveUninitialized: true,
-    secret: 'SECRET'
-}));
+// app.use(session({
+//     resave: false,
+//     saveUninitialized: true,
+//     secret: 'SECRET'
+// }));
 
 app.get('/', (req, res) => {
     res.render('index');
@@ -86,27 +86,33 @@ app.get('/login', (req, res) => {
 app.get('/entree', (req, res) => {
     res.render('entree');
 });
+
 app.get('/manager', (req, res) => {
     res.render('manager');
 });
+
 app.get('/starter', (req, res) => {
     res.render('starter');
 });
+
 app.get('/topping', (req, res) => {
     res.render('topping');
 });
+
 app.get('/placeorder', (req, res) => {
-    servers = []
-    pool
-        .query('SELECT \"Server Name\" as \"ServerName\" FROM \"Servers\";')
-        .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++){
-                servers.push(query_res.rows[i]);
-            }
-            const data = {servers: servers};
-            console.log(servers);
-            res.render('placeorder', data);
-        });
+//     servers = []
+//     pool
+//         .query('SELECT \"Server Name\" as \"ServerName\" FROM \"Servers\";')
+//         .then(query_res => {
+//             for (let i = 0; i < query_res.rowCount; i++){
+//                 servers.push(query_res.rows[i]);
+//             }
+//             const data = {servers: servers};
+//             console.log(servers);
+//             res.render('placeorder', data);
+//         });
+    
+    res.render('placeorder');
 });
 
 app.get('/placeorder',(req,res)=> {
@@ -115,25 +121,25 @@ app.get('/placeorder',(req,res)=> {
     Toppings =["Pickled Onions", "Diced Cucumbers","Citris Couscous","Roasted Cauliflower","Tomato-Onion Salad"]
 });
 
-app.get('/success', (req, res) => res.send(userProfile));
-app.get('/error', (req, res) => res.send("error logging in"));
+// app.get('/success', (req, res) => res.send(userProfile));
+// app.get('/error', (req, res) => res.send("error logging in"));
 
-app.get('/auth/google',
-    passport.authenticate('google', {scope: ['profile','email']}));
+// app.get('/auth/google',
+//     passport.authenticate('google', {scope: ['profile','email']}));
 
-app.get('/auth/google/callback',
-    passport.authenticate('google', {failureRedirect: '/error'}),
-    function(req, res ) {
-        res.redirect('/success');
-});
+// app.get('/auth/google/callback',
+//     passport.authenticate('google', {failureRedirect: '/error'}),
+//     function(req, res ) {
+//         res.redirect('/success');
+// });
 
-passport.serializeUser(function(user,cb) {
-    cb(null,user);
-});
+// passport.serializeUser(function(user,cb) {
+//     cb(null,user);
+// });
 
-passport.deserializeUser(function(obj, cb) {
-    cb(null,obj);
-});
+// passport.deserializeUser(function(obj, cb) {
+//     cb(null,obj);
+// });
 
 
 

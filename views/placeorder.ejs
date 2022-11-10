@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Place Order</title>
-    <link rel="icon" type="img/png" size="32x32" href="/img/P&H logo.png"/>
+    <link rel="icon" type="img/png" size="32x32" href="P&H logo.png"/>
     <link
     href="https://fonts.googleapis.com/css2?family=Epilogue:wght@500;700&display=swap"
     rel="stylesheet"
@@ -16,22 +16,21 @@
     href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600&display=swap"
     rel="stylesheet"
   />
+  <link rel="stylesheet" href="/css/server.css" id="page_style"/>
 </head>
-<body>
-    <h1 class="title">RELAX, IT'S UNDER CONSTRUCTION!</h1>
+<body class="order_page">
+  <h1 class="order_title">Order Check Out</h1>
+    <div class="placeorder_wrapper">
+      <div class="cart place_order">
+        <h1 class="title">Order Cart</h1>
+        <div class="order_contents_wrapper">
+          <div class="order_content" id="cart_content">Your cart is currently empty!</div>
+          <!-- <div class="order_contents" id="cart_content">Your cart is currently empty!</div> -->
+        </div> 
+    </div>
+    <button class="submit_order">Place Order!</button>
+    </div>
 
-    <% for (var i in servers) {%> 
-      <p>Name: <%=servers[i].ServerName%><p>
-    <% } %>
-
-
-
-
-
-
-
-
-    <script src="/js/client.js"></script>
-    <!--<script src="../app.js"></script>-->
+    <script src="client.js"></script>
 </body>
 </html>

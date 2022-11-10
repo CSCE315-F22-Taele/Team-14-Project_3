@@ -110,3 +110,33 @@ button:hover{
 .order_content{
     padding-bottom:10px;
 }
+
+.placeorder_wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:25px;
+}
+.order_page{
+    padding:5rem 5rem 0 5rem;
+}
+.order_title{
+    padding:20px 20px 30px 20px;
+    text-align:center;
+    font-size:2rem;
+}
+.place_order{
+    width:330px;
+    height:550px;
+}
+.submit_order{
+    padding:1rem 1.85rem;
+    border-radius:0.5em;
+    border:none;
+    font-size:1.5rem;
+    color:black;
+    box-shadow: -16px 21px 23px -5px rgba(0,0,0,0.71);
+    color: white;
+    background-color: rgb(3, 102, 3);
+}
