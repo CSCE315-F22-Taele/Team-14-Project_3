@@ -6,6 +6,24 @@ let combo_count = 0;
 let topping_count=0;
 let dressing_count=0;
 
+/*Plan of action:
+if we use cart_content we have to parse through that entire string of choices. also adding the choices to cart_content would be diff
+can we add a Order object to the js file and just save the order through it?
+*/
+function fillCart() {
+    if (!(localStorage.getItem("stored_entree") == ""  || localStorage.getItem("stored_entree") == null)) {
+        document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
+        <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_entree")}</div>
+        `)
+    }
+    if (!(localStorage.getItem("stored_protein") == ""  || localStorage.getItem("stored_protein") == null)) {
+        document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
+        <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_protein")}</div>
+        `)
+    }
+
+}
+fillCart();
 for (let i = 0; i < buttons.length - 2; i++) {
     buttons[i].addEventListener('click', function () {
         if (buttons[i].classList.contains('active')) {
@@ -120,11 +138,57 @@ for (let i = buttons.length - 2; i < buttons.length; i++) {
             }
             else{
                 location.href = "topping";
-                if(localStorage.getItem("stored_entree") != ""){
-                    document.getElementById('inner_cart_content').innerHTML("asjklaskdjl");
-                }
+                // fillCart();
+                // if(localStorage.getItem("stored_entree") !== ""){
+                //     console.log(localStorage.getItem().innerHTML);
+                //     console.log(localStorage.getItem());
+                //     // document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
+                //     // <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem(().innerHTML}</div>
+                //     // `)
+                // }
             }
         }
     });
 }
+function orderFunction(){
+    //array of options
+    const Entrees =["Grain Bowl","Salad","Pita","Green & Grains"];
+    const Proteins =["Gyro","Falafel","Vegetable Medley","Meatballs"];//need to finish toppings list
+    const Toppings =["Pickled Onions", "Diced Cucumbers","Citris Couscous","Roasted Cauliflower","Tomato-Onion Salad"];
+    const Starters =["2 Falafels","Hummus & Pita","Vegan Box","Garlic Fries"];
+    const Drinks =["Bottled Water","Bottled Soda","Fountain Soda"];
 
+    //setting  up order
+    let type=-1;
+    let Protein=0;
+    const topingChoice=[0,0,0,0];
+    let drink=0;
+    let starter=0;
+
+    
+    
+/**
+ * 1. Parse through cart
+ * 2. Set order values
+ * 3. Send order to database
+ * 4. Clear local storage
+ */
+
+
+
+
+    clearStorage();
+}
+
+function clearStorage() {
+    // localStorage.$reset();
+    localStorage.clear();
+    // var key; 
+    // for (var i = 0; i < localStorage.length; i++) {   
+    //     key = localStorage.key(i);    
+    //     // if(key != particularKey) {       
+    //     //     localStorage.removeItem(key);   
+    //     // } 
+    //     localStorage.removeItem(key);   
+    // }
+}
