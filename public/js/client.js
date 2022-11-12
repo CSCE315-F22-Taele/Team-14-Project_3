@@ -158,9 +158,26 @@ function orderFunction(){
     const Starters =["2 Falafels","Hummus & Pita","Vegan Box","Garlic Fries"];
     const Drinks =["Bottled Water","Bottled Soda","Fountain Soda"];
 
-    //setting  up order
-    let type=-1;
+    //setting  up order assuming local storage is used
+    let type=-1
     let Protein=0;
+    if(localStorage.getItem(stored_combo)==null){
+        for(let i=0;i<Entrees.length;i++){
+            if(Entrees[i]==localStorage.getItem(stored_entree)){
+                type=i;
+            }
+        }
+
+        for(let i=0;i<Proteins.length;i++){
+            if(Proteins[i]==localStorage.getItem(stored_entree)){
+                Proetien=i+1;//setting ups entree codes like in java
+            }
+        }
+    }
+    else{//combo chosen
+        console.log("combo chosen functionality not added yet")
+    }
+    let entreeCode
     const topingChoice=[0,0,0,0];
     let drink=0;
     let starter=0;
