@@ -151,15 +151,27 @@ for (let i = buttons.length - 2; i < buttons.length; i++) {
     });
 }
 function orderFunction(){
+    /**
+     * 1. Parse through cart
+     * 2. Set order values
+     * 3. Send order to database
+     * 4. Clear local storage
+     */
     //array of options
     const Entrees =["Grain Bowl","Salad","Pita","Green & Grains"];
     const Proteins =["Gyro","Falafel","Vegetable Medley","Meatballs"];//need to finish toppings list
+    
     const Toppings =["Pickled Onions", "Diced Cucumbers","Citris Couscous","Roasted Cauliflower","Tomato-Onion Salad"];
+    const Dressings=["Hummus","Red Pepper Hummus","Jalepeno Feta","Tzatziki","Greek Vinagrette","Harissa Yogurt","Lemon Herb Tahini","Yogurt Dill"];
+    
     const Starters =["2 Falafels","Hummus & Pita","Vegan Box","Garlic Fries"];
+    const StarterPrices=[2.85,3.50,6.49,1.99]
     const Drinks =["Bottled Water","Bottled Soda","Fountain Soda"];
 
     //setting  up order assuming local storage is used
-    let type=-1
+    //this sets up the type and protein from local storage
+    let total=7.69;
+    let type=-1;
     let Protein=0;
     if(localStorage.getItem(stored_combo)==null){
         for(let i=0;i<Entrees.length;i++){
@@ -169,27 +181,51 @@ function orderFunction(){
         }
 
         for(let i=0;i<Proteins.length;i++){
-            if(Proteins[i]==localStorage.getItem(stored_entree)){
-                Proetien=i+1;//setting ups entree codes like in java
+            if(Proteins[i]==localStorage.getItem(stored_protein)){
+                Proetien=i+1;
             }
         }
     }
     else{//combo chosen
-        console.log("combo chosen functionality not added yet")
+        type=4;//wrap
+        Protein=1;//gyro
+        //need to handle combos in front end before this is finalized
+        total=8.99;
+
     }
-    let entreeCode
-    const topingChoice=[0,0,0,0];
-    let drink=0;
-    let starter=0;
+    let entreeCode=type*5+Protein;//generates entree code
+
+    let Dressing=0;
+    for(let i=0;i<Dressings.length;i++){
+        if(Dressings[i]==localStorage.getItem(stored_dressing)){
+            Dressing=i+1;
+        }
+    }
+
+    const topingChoice=[0,0,0,0];//need to set up toppings need confirmation from front
+
+    let Drink=0;
+    if(localStorage.getItem(stored_drink)!=null){
+        for(let i=0;i<Drinks.length;i++){
+            if(Drinks[i]==localStorage.getItem(stored_drink)){
+                Drink=i+1;
+            }
+        }
+        total=8.99;
+    }
+    let Starter=0;
+    if(localStorage.getItem(stored_starter)!=null){
+        for(let i=0;i<Starters.length;i++){
+            if(Starters[i]==localStorage.getItem(stored_starter)){
+                Starter=i+1;
+                total+=StarterPrices[i];
+            }
+        }
+    }
+    //command generated
+    let command="INSERT INTO \"Order\" (\"Date\", \"Server ID\", \"Total Amount\", \"Entree ID\", \"Topping IDs\", \"Dressing ID\", \"Starter ID\", \"Drinks ID\" ) values ('" + new Date().toLocaleDateString() + "', "+ 0 +"," + total + "," + entreeCode + ", ARRAY[" + Toppings.toString +"], "  +Dressing +", " + Starter+", " + Drink+", "+ ");";
 
     
-    
-/**
- * 1. Parse through cart
- * 2. Set order values
- * 3. Send order to database
- * 4. Clear local storage
- */
 
 
 
