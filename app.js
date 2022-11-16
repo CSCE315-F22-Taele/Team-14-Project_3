@@ -13,6 +13,7 @@ const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const GOOGLE_ClIENT_ID = '625697344229-lehp84g2idbdpus8u4giv5h3dg9caaaj.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET = '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';
+const GOOGLE_MAPS_API_KEY = 'AIzaSyAJZl_Lzin75LBNWotrJsaK5FBViopHZbM';
 // passport.use(new GoogleStrategy({
 //         clientID: GOOGLE_ClIENT_ID,
 //         clientSecret: GOOGLE_CLIENT_SECRET,
