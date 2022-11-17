@@ -10,36 +10,10 @@ const dotenv = require('dotenv').config();
 const session = require('express-session');
 // const passport = require('passport');
 // var userProfile;
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const GOOGLE_ClIENT_ID = '625697344229-lehp84g2idbdpus8u4giv5h3dg9caaaj.apps.googleusercontent.com';
-const GOOGLE_CLIENT_SECRET = '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';
-const GOOGLE_MAPS_API_KEY = 'AIzaSyAJZl_Lzin75LBNWotrJsaK5FBViopHZbM';
-// passport.use(new GoogleStrategy({
-//         clientID: GOOGLE_ClIENT_ID,
-//         clientSecret: GOOGLE_CLIENT_SECRET,
-//         callbackURL: "http://localhost:3000/auth/google/callback"
-//     },
-//     function(accessToken, refreshToken, profile, done) {
-//         userProfile = profile;
-//         return done(null, userProfile);
-//     }
-// ));
 
 const hostname = 'localhost';
 const port = 3000;
 
-//create oauth client
-// const oauth2Client = new google.auth.OAuth2(
-//     GOOGLE_CLIENT_ID,
-//     GOOGLE_CLIENT_SECRET,
-//     /*
-//      * This is where Google will redirect the user after they
-//      * give permission to your application
-//      *
-//     */
-//     'localhost:3000/auth/google',
-// );
-//create pool
 const pool = new Pool({
     user: process.env.PSQL_USER,
     host: process.env.PSQL_HOST,
@@ -121,28 +95,6 @@ app.get('/placeorder',(req,res)=> {
     Protein =["Gyro","Falafel","Vegetable Medley","Meatballs"]//need to finish toppings list
     Toppings =["Pickled Onions", "Diced Cucumbers","Citris Couscous","Roasted Cauliflower","Tomato-Onion Salad"]
 });
-
-// app.get('/success', (req, res) => res.send(userProfile));
-// app.get('/error', (req, res) => res.send("error logging in"));
-
-// app.get('/auth/google',
-//     passport.authenticate('google', {scope: ['profile','email']}));
-
-// app.get('/auth/google/callback',
-//     passport.authenticate('google', {failureRedirect: '/error'}),
-//     function(req, res ) {
-//         res.redirect('/success');
-// });
-
-// passport.serializeUser(function(user,cb) {
-//     cb(null,user);
-// });
-
-// passport.deserializeUser(function(obj, cb) {
-//     cb(null,obj);
-// });
-
-
 
 //app.use('/public', express.static('public'));
 
