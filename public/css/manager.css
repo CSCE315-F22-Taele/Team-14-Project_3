@@ -31,7 +31,7 @@ body{
     align-items:center;
     gap:60px;
     padding:1.5rem 2rem;
-    max-width:1200px;
+    max-width:850px;
 }
 .item_btn{
     font-size:1.75rem;
