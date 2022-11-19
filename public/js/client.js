@@ -5,6 +5,9 @@ let protein_count = 0;
 let combo_count = 0;
 let topping_count=0;
 let dressing_count=0;
+let starter_count = 0;
+let drink_count = 0;
+
 
 /*Plan of action:
 if we use cart_content we have to parse through that entire string of choices. also adding the choices to cart_content would be diff
@@ -21,7 +24,33 @@ function fillCart() {
         <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_protein")}</div>
         `)
     }
-
+    if (!(localStorage.getItem("stored_combo") == ""  || localStorage.getItem("stored_combo") == null)) {
+        document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
+        <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_combo")}</div>
+        `)
+    }
+    for (let i = 1; i < 5; i++) {
+        if (!(localStorage.getItem("stored_topping" + i) == ""  || localStorage.getItem("stored_topping" + i) == null)) {
+            document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
+            <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_topping" + i)}</div>
+            `)
+        }
+    }
+    if (!(localStorage.getItem("stored_dressing") == ""  || localStorage.getItem("stored_dressing") == null)) {
+        document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
+        <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_dressing")}</div>
+        `)
+    }
+    if (!(localStorage.getItem("stored_drink") == ""  || localStorage.getItem("stored_drink") == null)) {
+        document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
+        <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_drink")}</div>
+        `)
+    }
+    if (!(localStorage.getItem("stored_starter") == ""  || localStorage.getItem("stored_starter") == null)) {
+        document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
+        <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_starter")}</div>
+        `)
+    }
 }
 fillCart();
 for (let i = 0; i < buttons.length - 2; i++) {
@@ -38,11 +67,27 @@ for (let i = 0; i < buttons.length - 2; i++) {
             }
             if(buttons[i].classList.contains('protein_btn')){
                 protein_count--;
-                localStorage.setItem("stored_entree", "");
+                localStorage.setItem("stored_protein", "");
             }
             if(buttons[i].classList.contains('combo_btn')){
                 combo_count--;
-                localStorage.setItem("stored_entree", "");
+                localStorage.setItem("stored_combo", "");
+            }
+            if(buttons[i].classList.contains('topping_btn')){
+                topping_count--;
+                // localStorage.setItem("stored_topping", "");
+            }
+            if(buttons[i].classList.contains('dressing_btn')){
+                dressing_count--;
+                localStorage.setItem("stored_dressing", "");
+            }
+            if(buttons[i].classList.contains('starter_btn')){
+                starter_count--;
+                localStorage.setItem("stored_starter", "");
+            }
+            if(buttons[i].classList.contains('drink_btn')){
+                drink_count--;
+                localStorage.setItem("stored_drink", "");
             }
             
             let d = document.getElementsByClassName('inner_order_content');
@@ -77,7 +122,6 @@ for (let i = 0; i < buttons.length - 2; i++) {
                     localStorage.setItem("stored_entree", this.innerHTML);
                 }
             }
-
             if (buttons[i].classList.contains('protein_btn')) {
                 if (protein_count == 1) {
                     alert("You can only select 1 protein!");
@@ -113,19 +157,55 @@ for (let i = 0; i < buttons.length - 2; i++) {
                     count++;
                     localStorage.setItem("stored_combo", this.innerHTML);
                 }
-
             }
-            // if(count==0){
-            //     document.getElementById('cart_content').innerHTML ="";
-            // }
-            // document.getElementById('cart_content').innerHTML += `
-            //       <div class="order_content" id="cart_content">${this.innerHTML}</div>
-            // `;  
-
-            // document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-            //        <div class="inner_order_content" id="inner_cart_content">${this.innerHTML}</div>
-            //  `)
-            //count++;
+            if (buttons[i].classList.contains('topping_btn')) {
+                if(topping_count>=4){
+                    alert("You can only select 4 toppings!");
+                    buttons[i].classList.remove('active');
+                }else{
+                    document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
+                    <div class="inner_order_content" id="inner_cart_content">${this.innerHTML}</div>
+                    `)
+                    localStorage.setItem("stored_topping" + (topping_count + 1), this.innerHTML);
+                    topping_count++;
+                }
+            }
+            if (buttons[i].classList.contains('dressing_btn')) {
+                if(dressing_count>=1){
+                    alert("You can only select 1 dressing!");
+                    buttons[i].classList.remove('active');
+                }else{
+                    dressing_count++;
+                    document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
+                    <div class="inner_order_content" id="inner_cart_content">${this.innerHTML}</div>
+                    `)
+                    localStorage.setItem("stored_dressing", this.innerHTML);
+                }
+            }
+            if (buttons[i].classList.contains('starter_btn')) {
+                if(starter_count>=1){
+                    alert("You can only select 1 starter!");
+                    buttons[i].classList.remove('active');
+                }else{
+                    starter_count++;
+                    document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
+                    <div class="inner_order_content" id="inner_cart_content">${this.innerHTML}</div>
+                    `)
+                    localStorage.setItem("stored_starter", this.innerHTML);
+                }
+            }
+            if (buttons[i].classList.contains('drink_btn')) {
+                if(drink_count>=1){
+                    alert("You can only select 1 drink!");
+                    buttons[i].classList.remove('active');
+                }else{
+                    drink_count++;
+                    document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
+                    <div class="inner_order_content" id="inner_cart_content">${this.innerHTML}</div>
+                    `)
+                    localStorage.setItem("stored_drink", this.innerHTML);
+                }
+            }
         }
     });
 }
@@ -138,18 +218,20 @@ for (let i = buttons.length - 2; i < buttons.length; i++) {
             }
             else{
                 location.href = "topping";
-                // fillCart();
-                // if(localStorage.getItem("stored_entree") !== ""){
-                //     console.log(localStorage.getItem().innerHTML);
-                //     console.log(localStorage.getItem());
-                //     // document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-                //     // <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem(().innerHTML}</div>
-                //     // `)
-                // }
+            }
+        }
+        if(buttons[i].classList.contains("to_starter")){
+            if(!(topping_count==1 || dressing_count==1)){
+                alert("Select an atleast 1 topping and 1 dressing before proceeding!");
+                event.preventDefault();
+            }
+            else{
+                location.href = "starter";
             }
         }
     });
 }
+
 function orderFunction(){
     /**
      * 1. Parse through cart
@@ -158,6 +240,7 @@ function orderFunction(){
      * 4. Clear local storage
      */
     //array of options
+    console.log("Order Function Started");
     const Entrees =["Grain Bowl","Salad","Pita","Green & Grains"];
     const Proteins =["Gyro","Falafel","Vegetable Medley","Meatballs"];//need to finish toppings list
     
@@ -173,16 +256,16 @@ function orderFunction(){
     let total=7.69;
     let type=-1;
     let Protein=0;
-    if(localStorage.getItem(stored_combo)==null){
+    if(localStorage.getItem("stored_combo")==null){
         for(let i=0;i<Entrees.length;i++){
-            if(Entrees[i]==localStorage.getItem(stored_entree)){
+            if(Entrees[i]==localStorage.getItem("stored_entree")){
                 type=i;
             }
         }
 
         for(let i=0;i<Proteins.length;i++){
-            if(Proteins[i]==localStorage.getItem(stored_protein)){
-                Proetien=i+1;
+            if(Proteins[i]==localStorage.getItem("stored_protein")){
+                Protein=i+1;
             }
         }
     }
@@ -197,51 +280,99 @@ function orderFunction(){
 
     let Dressing=0;
     for(let i=0;i<Dressings.length;i++){
-        if(Dressings[i]==localStorage.getItem(stored_dressing)){
+        if(Dressings[i]==localStorage.getItem("stored_dressing")){
             Dressing=i+1;
         }
     }
 
-    const topingChoice=[0,0,0,0];//need to set up toppings need confirmation from front
+    const toppingChoice=[0,0,0,0];//need to set up toppings need confirmation from front
+    
+    if(localStorage.getItem("stored_topping1")!=null){
+        for(let i=0;i<Toppings.length;i++){
+            if(Toppings[i]==localStorage.getItem("stored_topping1")){
+                toppingChoice[0]=i+1;
+            }
+        }
+    }
+    if(localStorage.getItem("stored_topping2")!=null){
+        for(let i=0;i<Toppings.length;i++){
+            if(Toppings[i]==localStorage.getItem("stored_topping2")){
+                toppingChoice[1]=i+1;
+            }
+        }
+    }
+
+    if(localStorage.getItem("stored_topping3")!=null){
+        for(let i=0;i<Toppings.length;i++){
+            if(Toppings[i]==localStorage.getItem("stored_topping3")){
+                toppingChoice[2]=i+1;
+            }
+        }
+    }
+
+    if(localStorage.getItem("stored_topping4")!=null){
+        for(let i=0;i<Toppings.length;i++){
+            if(Toppings[i]==localStorage.getItem("stored_topping4")){
+                toppingChoice[0]=i+1;
+            }
+        }
+    }
 
     let Drink=0;
-    if(localStorage.getItem(stored_drink)!=null){
+    if(localStorage.getItem("stored_drink")!=null){
         for(let i=0;i<Drinks.length;i++){
-            if(Drinks[i]==localStorage.getItem(stored_drink)){
+            if(Drinks[i]==localStorage.getItem("stored_drink")){
                 Drink=i+1;
             }
         }
         total=8.99;
     }
     let Starter=0;
-    if(localStorage.getItem(stored_starter)!=null){
+    if(localStorage.getItem("stored_starter")!=null){
         for(let i=0;i<Starters.length;i++){
-            if(Starters[i]==localStorage.getItem(stored_starter)){
+            if(Starters[i]==localStorage.getItem("stored_starter")){
                 Starter=i+1;
                 total+=StarterPrices[i];
             }
         }
     }
     //command generated
-    let command="INSERT INTO \"Order\" (\"Date\", \"Server ID\", \"Total Amount\", \"Entree ID\", \"Topping IDs\", \"Dressing ID\", \"Starter ID\", \"Drinks ID\" ) values ('" + new Date().toLocaleDateString() + "', "+ 0 +"," + total + "," + entreeCode + ", ARRAY[" + Toppings.toString +"], "  +Dressing +", " + Starter+", " + Drink+", "+ ");";
-
+    let command="INSERT INTO \"Order\" (\"Date\", \"Server ID\", \"Total Amount\", \"Entree ID\", \"Topping IDs\", \"Dressing ID\", \"Starter ID\", \"Drinks ID\" ) values ('" + new Date().toLocaleDateString() + "', "+ 0 +"," + total + "," + entreeCode + ", ARRAY[" + toppingChoice.toString() +"], "  +Dressing +", " + Starter+", " + Drink+", "+ ");";
+    console.log(command);
     
-
-
-
-
     clearStorage();
 }
+
 
 function clearStorage() {
     // localStorage.$reset();
     localStorage.clear();
-    // var key; 
-    // for (var i = 0; i < localStorage.length; i++) {   
-    //     key = localStorage.key(i);    
-    //     // if(key != particularKey) {       
-    //     //     localStorage.removeItem(key);   
-    //     // } 
-    //     localStorage.removeItem(key);   
-    // }
+    localStorage.setItem("stored_entree", "");
+    localStorage.setItem("stored_protein", "");
+    localStorage.setItem("stored_combo", "");
+    localStorage.setItem("stored_topping1", "");
+    localStorage.setItem("stored_topping2","");
+    localStorage.setItem("stored_topping3","");
+    localStorage.setItem("stored_topping4","");
+
+    let d = document.getElementsByClassName('inner_order_content');
+    for (let j = 0; j < d.length; j++) {
+        //console.log(d[j].innerHTML);
+        //console.log(buttons[j].innerHTML);
+        //if (buttons[j].innerHTML == d[j].innerHTML) {
+            d[j].parentNode.removeChild(d[j]);
+            
+        //}
+    }
+    console.log("localStorage cleared");
+}
+
+function clearTandS() {
+    localStorage.setItem("stored_topping1", "");
+    localStorage.setItem("stored_topping2", "");
+    localStorage.setItem("stored_topping3", "");
+    localStorage.setItem("stored_topping4", "");
+    localStorage.setItem("stored_dressing", "");
+    localStorage.setItem("stored_starter", "");
+    localStorage.setItem("stored_drink", "");
 }

@@ -101,6 +101,9 @@ app.get('/placeorder',(req,res)=> {
 app.listen(port, hostname, () => {
     console.log(`Pom&Honey Web App listening at http://localhost:${port}`);
 });
+/*app.listen(port, orderFunction(),() =>{
+    console.log('OrderFunction Recognized');
+});*/
 
 
 //----------------front-end JS
