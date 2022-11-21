@@ -1,21 +1,9 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCDQ1FLuqa5dFbwZFWHU0qRf3xiq2C7D0I",
-  authDomain: "pom-honey.firebaseapp.com",
-  projectId: "pom-honey",
-  storageBucket: "pom-honey.appspot.com",
-  messagingSenderId: "604614429107",
-  appId: "1:604614429107:web:f8d45bae115533002823c6",
-  measurementId: "G-92S5RQ1WE3"
-};
-
 // const { appendFile } = require('fs');
 // const http = require('http');
 
@@ -25,6 +13,8 @@ const app = express();
 const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
 const session = require('express-session');
+//var firebase = require('firebase');
+//var firebaseui = require('firebaseui');
 // const passport = require('passport');
 // var userProfile;
 
@@ -101,10 +91,16 @@ app.get('/placeorder', (req, res) => {
     res.render('placeorder');
 });
 
-app.get('/placeorder',(req,res)=> {
-    Entrees =["Grain Bowl","Salad","Pita","Green & Grains"]
-    Protein =["Gyro","Falafel","Vegetable Medley","Meatballs"]//need to finish toppings list
-    Toppings =["Pickled Onions", "Diced Cucumbers","Citris Couscous","Roasted Cauliflower","Tomato-Onion Salad"]
+app.post('/ordersent',(req,res)=> {
+    // console.log(req.body);
+    // console.log(req);
+    const { command } = req.body;
+    console.log(command);
+    console.log("Command received");
+});
+app.get('/ordersent',(req,res)=> {
+    console.log("Order Received");
+
 });
 
 //app.use('/public', express.static('public'));
@@ -117,48 +113,3 @@ app.listen(port, hostname, () => {
 });*/
 
 
-//----------------front-end JS
-// let buttons = document.querySelectorAll("button");
-// let count=0;
-// let entree_count=0;
-// let protein_count=0;
-// let combo_count=0;
-// for(let i=0; i<buttons.length-2; i++){
-//     buttons[i].addEventListener('click', function(){
-//         if(buttons[i].classList.contains('active')){
-//             count--;
-//             if(count == 0){
-//                 document.getElementById('cart_content').innerHTML="Your cart is currently empty!";
-//             }
-//             buttons[i].classList.remove('active');
-//             let d = document.getElementsByClassName('inner_order_content');
-//             for(let j=0; j<d.length; j++){
-//                 //console.log(d[j].innerHTML);
-//                 //console.log(buttons[j].innerHTML);
-//                 if(buttons[i].innerHTML == d[j].innerHTML){
-//                     d[j].parentNode.removeChild(d[j]);
-//                 }
-//             }
-            
-//         }
-//         else{
-//             buttons[i].classList.add('active');
-//             // if(buttons[i].classList.contains('entree_btn')){entree_count++;}
-//             // if(buttons[i].classList.contains('protein_btn')){protein_count++;}
-//             // if(buttons[i].classList.contains('combo_btn')){
-                
-//             // }
-//             if(count==0){
-//                 document.getElementById('cart_content').innerHTML ="";
-//             }
-//             // document.getElementById('cart_content').innerHTML += `
-//             //       <div class="order_content" id="cart_content">${this.innerHTML}</div>
-//             // `;  
-    
-//             document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-//                    <div class="inner_order_content" id="inner_cart_content">${this.innerHTML}</div>
-//              `)
-//             count++;
-//         }
-//     });
-// }

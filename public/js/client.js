@@ -337,10 +337,22 @@ function orderFunction(){
         }
     }
     //command generated
-    let command="INSERT INTO \"Order\" (\"Date\", \"Server ID\", \"Total Amount\", \"Entree ID\", \"Topping IDs\", \"Dressing ID\", \"Starter ID\", \"Drinks ID\" ) values ('" + new Date().toLocaleDateString() + "', "+ 0 +"," + total + "," + entreeCode + ", ARRAY[" + toppingChoice.toString() +"], "  +Dressing +", " + Starter+", " + Drink+", "+ ");";
+    const command="INSERT INTO \"Order\" (\"Date\", \"Server ID\", \"Total Amount\", \"Entree ID\", \"Topping IDs\", \"Dressing ID\", \"Starter ID\", \"Drinks ID\" ) values ('" + new Date().toLocaleDateString() + "', "+ 0 +"," + total + "," + entreeCode + ", ARRAY[" + toppingChoice.toString() +"], "  +Dressing +", " + Starter+", " + Drink+ ");";
     console.log(command);
     
+    fetch('/ordersent', {
+        method: 'POST',
+        body: JSON.stringify({
+            command,
+        }),
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => console.log(data));
+
     clearStorage();
+    alert("Your order is confirmed! Thank you for choosing us!");
 }
 
 
