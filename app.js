@@ -1,4 +1,21 @@
-//import {google} from 'googleapis';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCDQ1FLuqa5dFbwZFWHU0qRf3xiq2C7D0I",
+  authDomain: "pom-honey.firebaseapp.com",
+  projectId: "pom-honey",
+  storageBucket: "pom-honey.appspot.com",
+  messagingSenderId: "604614429107",
+  appId: "1:604614429107:web:f8d45bae115533002823c6",
+  measurementId: "G-92S5RQ1WE3"
+};
+
 // const { appendFile } = require('fs');
 // const http = require('http');
 
@@ -43,12 +60,6 @@ app.use(express.static(__dirname + '/public'));
 // app.use(passport.session());
 
 app.set("view engine", "ejs");
-
-// app.use(session({
-//     resave: false,
-//     saveUninitialized: true,
-//     secret: 'SECRET'
-// }));
 
 app.get('/', (req, res) => {
     res.render('index');
