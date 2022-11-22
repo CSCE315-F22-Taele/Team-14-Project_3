@@ -244,7 +244,7 @@ function orderFunction(){
     const Entrees =["Grain Bowl","Salad","Pita","Green & Grains"];
     const Proteins =["Gyro","Falafel","Vegetable Medley","Meatballs","Chicken"];//need to finish toppings list
     
-    const Toppings =["Pickled Onions", "Diced Cucumbers","Citris Couscous","Roasted Cauliflower","Tomato-Onion Salad"];
+    const Toppings =["Pickled Onions", "Diced Cucumbers","Citrus Couscous","Roasted Cauliflower","Tomato-Onion Salad","Kalamata-Olives","Roasted Peppers","Red Cabbage Slaw"];
     const Dressings=["Hummus","Red Pepper Hummus","Jalepeno Feta","Tzatziki","Greek Vinagrette","Harissa Yogurt","Lemon Herb Tahini","Yogurt Dill"];
     
     const Starters =["2 Falafels","Hummus & Pita","Vegan Box","Garlic Fries"];
