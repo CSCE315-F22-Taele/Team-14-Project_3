@@ -1,11 +1,78 @@
 // Import the functions you need from the SDKs you need
+const firebaseAppModule = require("firebase/app");
+//const firebaseAnalytics = require("firebase/analytics");
+const firebaseAuth = require("firebase/auth");
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// const { appendFile } = require('fs');
-// const http = require('http');
+const firebaseConfig = {
+  apiKey: "AIzaSyCDQ1FLuqa5dFbwZFWHU0qRf3xiq2C7D0I",
+  authDomain: "pom-honey.firebaseapp.com",
+  projectId: "pom-honey",
+  storageBucket: "pom-honey.appspot.com",
+  messagingSenderId: "604614429107",
+  appId: "1:604614429107:web:f8d45bae115533002823c6",
+  measurementId: "G-92S5RQ1WE3"
+};
+
+// Initialize Firebase
+const firebaseApp = firebaseAppModule.initializeApp(firebaseConfig);
+//const analytics = firebaseAnalytics.getAnalytics(firebaseApp);
+
+// Set-up for Google OAuth UI
+const firebase = require('firebase');
+const firebaseui = require('firebaseui');
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+ui.start('#firebaseui-auth-container', {
+    signInOptions: [
+        {
+            provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            scopes: [
+                'https://www.googleapis.com/auth/contacts.readonly'
+            ],
+            customParameters: {
+                prompt: 'select_account'
+            }
+        },
+        {
+            provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+            requireDisplayName: false,
+            signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD
+        }
+        
+    ],
+    // Other config options...
+  });
+  var uiConfig = {
+    callbacks: {
+      signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+        // User successfully signed in.
+        // Return type determines whether we continue the redirect automatically
+        // or whether we leave that to developer to handle.
+        return true;
+      },
+      uiShown: function() {
+        // The widget is rendered.
+        // Hide the loader.
+        document.getElementById('loader').style.display = 'none';
+      }
+    },
+    // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+    signInFlow: 'popup',
+    signInSuccessUrl: '<url-to-redirect-to-on-success>',
+    signInOptions: [
+      // Leave the lines as is for the providers you want to offer your users.
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
+    ],
+    // Terms of service url.
+    tosUrl: '<your-tos-url>',
+    // Privacy policy url.
+    privacyPolicyUrl: '<your-privacy-policy-url>'
+  };
+  ui.start('#firebaseui-auth-containter', uiConfig);
 
 //create express app
 const express = require('express');
@@ -13,10 +80,6 @@ const app = express();
 const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
 const session = require('express-session');
-//var firebase = require('firebase');
-//var firebaseui = require('firebaseui');
-// const passport = require('passport');
-// var userProfile;
 
 const hostname = 'localhost';
 const port = 3000;
