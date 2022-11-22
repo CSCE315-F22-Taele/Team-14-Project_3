@@ -63,16 +63,11 @@ app.get('/entree', (req, res) => {
     res.render('entree');
 });
 
-app.get('/manager', (req, res) => {
-    res.render('manager');
-});
-
-app.get('/starter', (req, res) => {
-    res.render('starter');
-});
-
 app.get('/topping', (req, res) => {
     res.render('topping');
+});
+app.get('/starter', (req, res) => {
+    res.render('starter');
 });
 
 app.get('/placeorder', (req, res) => {
@@ -101,6 +96,23 @@ app.post('/ordersent',(req,res)=> {
 app.get('/ordersent',(req,res)=> {
     console.log("Order Received");
 
+});
+// --------------- MANAGER RELATED -------------------------
+app.get('/manager', (req, res) => {
+    res.render('manager');
+});
+app.get('/inventory', (req, res) => {
+    res.render('inventory');
+});
+app.get('/sales', (req, res) => {
+    res.render('sales');
+});
+
+app.get('/excess', (req, res) => {
+    res.render('excess');
+});
+app.get('/restock', (req, res) => {
+    res.render('restock');
 });
 
 //app.use('/public', express.static('public'));

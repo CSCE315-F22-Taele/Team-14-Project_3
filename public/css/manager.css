@@ -42,6 +42,13 @@ body{
     color:black;
     box-shadow: -16px 21px 23px -5px rgba(0,0,0,0.71);
 }
+.nav_bar{
+    margin-top:5rem;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
 .nav_btn{
     padding:1.25rem 2rem;
     border-radius:0.5em;
@@ -65,4 +72,68 @@ button:hover{
 .item_btn:active{
     background-color:rgb(0, 125, 0);
     color:white;
+}
+
+/* MANAGER SUBPAGES*/
+.man_subpages{
+    padding:4rem 6rem 0 6rem;
+}
+.man_view_title{
+    font-size:1.75rem;
+    letter-spacing:1.7px;
+    padding-bottom:0.75rem;
+}
+table thead tr td{
+    border-collapse:collapse;
+    border:2px;
+    margin:20px auto;
+    border-radius:3px;
+    background-color:white;
+    width:600px;
+    text-align:center;
+    padding:1rem;
+    overflow-y: hidden;
+}
+.row_item{
+    text-align:center;
+    background-color:white;
+    font-size:17px;
+    padding:4px;
+}
+#proceed{
+    background-color:rgb(3, 102, 3);
+    color:white;
+    font-size:20px;
+}
+
+form{
+    padding:0 40px;
+    display:flex;
+    align-items:center;
+    gap:3rem;
+}
+.text_field{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+    
+}
+label, input{
+    font-size:17px;
+    text-align:center;
+}
+
+input[type="submit"]{
+    border-radius:10px;
+    border:none;
+    font-size:1.25rem;
+    width:180px;
+    height:55px;
+    background:#007a49;
+    color:white;
+    box-shadow:5px 4px 4px 1px rgb(83 67 67);
+}
+.inner_title{
+    font-size:1.2rem;
+    text-align: center;
 }
