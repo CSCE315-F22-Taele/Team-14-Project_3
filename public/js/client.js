@@ -242,7 +242,7 @@ function orderFunction(){
     //array of options
     console.log("Order Function Started");
     const Entrees =["Grain Bowl","Salad","Pita","Green & Grains"];
-    const Proteins =["Gyro","Falafel","Vegetable Medley","Meatballs"];//need to finish toppings list
+    const Proteins =["Gyro","Falafel","Vegetable Medley","Meatballs","Chicken"];//need to finish toppings list
     
     const Toppings =["Pickled Onions", "Diced Cucumbers","Citris Couscous","Roasted Cauliflower","Tomato-Onion Salad"];
     const Dressings=["Hummus","Red Pepper Hummus","Jalepeno Feta","Tzatziki","Greek Vinagrette","Harissa Yogurt","Lemon Herb Tahini","Yogurt Dill"];
@@ -337,16 +337,25 @@ function orderFunction(){
         }
     }
     //command generated
-    const command="INSERT INTO \"Order\" (\"Date\", \"Server ID\", \"Total Amount\", \"Entree ID\", \"Topping IDs\", \"Dressing ID\", \"Starter ID\", \"Drinks ID\" ) values ('" + new Date().toLocaleDateString() + "', "+ 0 +"," + total + "," + entreeCode + ", ARRAY[" + toppingChoice.toString() +"], "  +Dressing +", " + Starter+", " + Drink+ ");";
-    console.log(command);
+    let date =new Date();
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    let day =date.getDay();
+    let fullDate = year + "-" + month + "-" + day; 
+    const command="INSERT INTO \"Order\" (\"Date\", \"Server ID\", \"Total Amount\", \"Entree ID\", \"Topping IDs\", \"Dressing ID\", \"Starter ID\", \"Drinks ID\" ) values ('" + fullDate + "', "+ 0 +"," + total + "," + entreeCode + ", ARRAY[" + toppingChoice.toString() +"], "  +Dressing +", " + Starter+", " + Drink+ ");";
+    // console.log(command);
+    console.log("updated2");
     
-    fetch('/ordersent', {
+    fetch('/placeorder', {
         method: 'POST',
+        headers: {
+            Authorization: 'Bearer abcdxyz',
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
             command,
         }),
-    })
-        .then((res) => {
+    })  .then((res) => {
             return res.json();
         })
         .then((data) => console.log(data));
