@@ -1,4 +1,6 @@
-
+// import firebase from 'firebase/compat/app';
+// import * as firebaseui from 'firebaseui';
+// import 'firebaseui/dist/firebaseui.css';
 
 //create express app
 const express = require('express');
@@ -6,6 +8,24 @@ const app = express();
 const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
 const session = require('express-session');
+
+//implement firebase bois
+const firebase = require('firebase/app');
+// TODO: Replace the following with your app's Firebase project configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyCDQ1FLuqa5dFbwZFWHU0qRf3xiq2C7D0I",
+    authDomain: "pom-honey.firebaseapp.com",
+    projectId: "pom-honey",
+    storageBucket: "pom-honey.appspot.com",
+    messagingSenderId: "604614429107",
+    appId: "1:604614429107:web:f8d45bae115533002823c6"
+};
+
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+const firebaseAuth = require("firebase/auth");
+
+const provider = new firebaseAuth.GoogleAuthProvider();
 
 const hostname = 'localhost';
 const port = 3000;
@@ -98,24 +118,26 @@ app.get('/manager', (req, res) => {
     res.render('manager');
 });
 app.get('/inventory', (req, res) => {
+    Entrees = []
+    Dressings = []
     pool
-        .query('SELECT * FROM \"Entrees\";', function (err, data, fields) {
-        if (err) throw err;
-        res.render('inventory', { title: 'Entree List', entData: data});
-        });
-    //res.render('inventory');
-    /*
-    pool
-        .query('SELECT * FROM \"Entrees\";')
+        .query('SELECT \"Entree Items\" as \"Items\", \"Entree Inventory\" as \"Inventory\" FROM \"Entrees\";')
         .then(query_res => {
             for (let i = 0; i < query_res.rowCount; i++) {
-                servers.push(query_res.rows[i]);
+                Entrees.push(query_res.rows[i]);
             }
-            const data = {servers: servers};
-            console.log(servers);
-            res.render('placeorder', data);
+            // res.render('inventory', Entrees);
         });
-    */
+    pool
+        .query('SELECT \"Dressing Item\" as \"Items\", \"Dressing Inventory\" as \"Inventory\" FROM \"Dressings\";')
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++) {
+                Entrees.push(query_res.rows[i]);
+            }
+    
+            //console.log(in);
+            res.render('inventory', Entrees);
+        });
 });
 
 app.get('/sales', (req, res) => {

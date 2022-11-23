@@ -29,24 +29,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>entData</tr>
-                </tr>
-                <%
-                if(entData.length!=0){
-                    var i = 1;
-                    entData.forEach(function(data){
-                %>
+                <%for(var i in Entrees){ %>
                     <tr>
-                        <td><%=data.Entree_Items %></td>
-                        <td><%=data.Entree_Inventory %></td>
+                        <td class="row_item"><%= Entrees[i].Items %></td>
+                        <td class="row_item"><%= Entrees[i].Inventory %></td>
                     </tr>
-                <%  i++; }) %>
-            <%  } else { %>
-                    <tr>
-                        <td colspan="7">No Data Found</td>
-                    </tr>
-            <%  } %>
+               <% } %>
+               <!-- <%for(var i in Dressings){ %>
+                <tr>
+                    <td><%= Dressings[i].DressingItems %></td>
+                    <td><%= Dressings[i].DressingInventory %></td>
                 </tr>
+           <% } %> -->
             </tbody>
         </table>
     </div>
