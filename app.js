@@ -1,21 +1,11 @@
+
+
 //create express app
 const express = require('express');
 const app = express();
 const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
 const session = require('express-session');
-
-const firebase = require('firebase/app');
-const firebaseAuth = require('firebase/auth');
-const firebaseConfig = {
-  apiKey: "AIzaSyCDQ1FLuqa5dFbwZFWHU0qRf3xiq2C7D0I",
-  authDomain: "pom-honey.firebaseapp.com",
-  projectId: "pom-honey",
-  storageBucket: "pom-honey.appspot.com",
-  messagingSenderId: "604614429107",
-  appId: "1:604614429107:web:f8d45bae115533002823c6"
-};
-const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const hostname = 'localhost';
 const port = 3000;
@@ -108,7 +98,20 @@ app.get('/manager', (req, res) => {
     res.render('manager');
 });
 app.get('/inventory', (req, res) => {
+    servers = []
+    pool
+        .query('SELECT \"Server Name\" as \"ServerName\" FROM \"Servers\";')
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++){
+                servers.push(query_res.rows[i]);
+            }
+            const data = {servers: servers};
+            console.log(servers);
+            res.render('placeorder', data);
+        });
+
     res.render('inventory');
+    
 });
 app.get('/sales', (req, res) => {
     res.render('sales');

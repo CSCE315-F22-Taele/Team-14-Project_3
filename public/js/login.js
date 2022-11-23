@@ -15,6 +15,8 @@ const firebaseAuth = require("firebase/auth");
 
 const provider = new firebaseAuth.GoogleAuthProvider();
 
+provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
 const auth = firebaseAuth.getAuth();
 firebaseAuth.signInWithPopup(auth, provider)
   .then((result) => {
