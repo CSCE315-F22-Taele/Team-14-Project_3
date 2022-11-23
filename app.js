@@ -9,7 +9,7 @@ const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
 const session = require('express-session');
 
-//implement firebase bois
+//implement firebase
 const firebase = require('firebase/app');
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
