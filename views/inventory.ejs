@@ -29,13 +29,23 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class = "row_item">--</td>
-                    <td class = "row_item">--</td>
+                <tr>entData</tr>
                 </tr>
-                <tr>
-                    <td class = "row_item">--</td>
-                    <td class = "row_item">--</td>
+                <%
+                if(entData.length!=0){
+                    var i = 1;
+                    entData.forEach(function(data){
+                %>
+                    <tr>
+                        <td><%=data.Entree_Items %></td>
+                        <td><%=data.Entree_Inventory %></td>
+                    </tr>
+                <%  i++; }) %>
+            <%  } else { %>
+                    <tr>
+                        <td colspan="7">No Data Found</td>
+                    </tr>
+            <%  } %>
                 </tr>
             </tbody>
         </table>

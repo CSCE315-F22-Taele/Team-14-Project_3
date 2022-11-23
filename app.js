@@ -98,21 +98,26 @@ app.get('/manager', (req, res) => {
     res.render('manager');
 });
 app.get('/inventory', (req, res) => {
-    servers = []
     pool
-        .query('SELECT \"Server Name\" as \"ServerName\" FROM \"Servers\";')
+        .query('SELECT * FROM \"Entrees\";', function (err, data, fields) {
+        if (err) throw err;
+        res.render('inventory', { title: 'Entree List', entData: data});
+        });
+    //res.render('inventory');
+    /*
+    pool
+        .query('SELECT * FROM \"Entrees\";')
         .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++){
+            for (let i = 0; i < query_res.rowCount; i++) {
                 servers.push(query_res.rows[i]);
             }
             const data = {servers: servers};
             console.log(servers);
             res.render('placeorder', data);
         });
-
-    res.render('inventory');
-    
+    */
 });
+
 app.get('/sales', (req, res) => {
     res.render('sales');
 });
