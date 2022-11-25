@@ -117,26 +117,51 @@ app.post('/placeorder', (req, res)=> {
 app.get('/manager', (req, res) => {
     res.render('manager');
 });
+
+
 app.get('/inventory', (req, res) => {
     Entrees = []
-    Dressings = []
+    //Dressings = []
+  
     pool
         .query('SELECT \"Entree Items\" as \"Items\", \"Entree Inventory\" as \"Inventory\" FROM \"Entrees\";')
         .then(query_res => {
             for (let i = 0; i < query_res.rowCount; i++) {
                 Entrees.push(query_res.rows[i]);
             }
-            // res.render('inventory', Entrees);
-        });
-    pool
-        .query('SELECT \"Dressing Item\" as \"Items\", \"Dressing Inventory\" as \"Inventory\" FROM \"Dressings\";')
-        .then(query_res => {
-            for (let i = 0; i < query_res.rowCount; i++) {
-                Entrees.push(query_res.rows[i]);
-            }
-    
-            //console.log(in);
-            res.render('inventory', Entrees);
+            pool
+                .query('SELECT \"Dressing Item\" as \"Items\", \"Dressing Inventory\" as \"Inventory\" FROM \"Dressings\";')
+                .then(query_res => {
+                    for (let j = 0; j < query_res.rowCount; j++) {
+                        Entrees.push(query_res.rows[j]);
+                    }
+                    pool
+                        .query('SELECT \"Topping Item\" as \"Items\", \"Topping Inventory\" as \"Inventory\" FROM \"Toppings\";')
+                        .then(query_res => {
+                            for (let j = 0; j < query_res.rowCount; j++) {
+                                Entrees.push(query_res.rows[j]);
+                            }
+                            pool
+                                .query('SELECT \"Starter Item\" as \"Items\", \"Starter Inventory\" as \"Inventory\" FROM \"Starters\";')
+                                .then(query_res => {
+                                    for (let j = 0; j < query_res.rowCount; j++) {
+                                        Entrees.push(query_res.rows[j]);
+                                    }
+                                    pool
+                                        .query('SELECT \"Drink Item\" as \"Items\", \"Drink Inventory\" as \"Inventory\" FROM \"Drinks\";')
+                                        .then(query_res => {
+                                            for (let j = 0; j < query_res.rowCount; j++) {
+                                                Entrees.push(query_res.rows[j]);
+                                            }
+                                            res.render('inventory', Entrees);
+                                            
+                                        });
+                                    
+                                });
+                                    
+                        });
+                    
+                });
         });
 });
 
@@ -148,7 +173,48 @@ app.get('/excess', (req, res) => {
     res.render('excess');
 });
 app.get('/restock', (req, res) => {
-    res.render('restock');
+    Stock = []
+  
+    pool
+        .query('SELECT \"Entree Items\" as \"Items\", \"Entree Inventory\" as \"Inventory\" FROM \"Entrees\";')
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++) {
+                Stock.push(query_res.rows[i]);
+            }
+            pool
+                .query('SELECT \"Dressing Item\" as \"Items\", \"Dressing Inventory\" as \"Inventory\" FROM \"Dressings\";')
+                .then(query_res => {
+                    for (let j = 0; j < query_res.rowCount; j++) {
+                        Stock.push(query_res.rows[j]);
+                    }
+                    pool
+                        .query('SELECT \"Topping Item\" as \"Items\", \"Topping Inventory\" as \"Inventory\" FROM \"Toppings\";')
+                        .then(query_res => {
+                            for (let j = 0; j < query_res.rowCount; j++) {
+                                Stock.push(query_res.rows[j]);
+                            }
+                            pool
+                                .query('SELECT \"Starter Item\" as \"Items\", \"Starter Inventory\" as \"Inventory\" FROM \"Starters\";')
+                                .then(query_res => {
+                                    for (let j = 0; j < query_res.rowCount; j++) {
+                                        Stock.push(query_res.rows[j]);
+                                    }
+                                    pool
+                                        .query('SELECT \"Drink Item\" as \"Items\", \"Drink Inventory\" as \"Inventory\" FROM \"Drinks\";')
+                                        .then(query_res => {
+                                            for (let j = 0; j < query_res.rowCount; j++) {
+                                                Stock.push(query_res.rows[j]);
+                                            }
+                                            res.render('restock', Stock);
+                                            
+                                        });
+                                    
+                                });
+                                    
+                        });
+                    
+                });
+        });
 });
 
 //app.use('/public', express.static('public'));

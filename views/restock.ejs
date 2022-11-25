@@ -30,14 +30,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class = "row_item">--</td>
-                    <td class = "row_item">--</td>
-                </tr>
-                <tr>
-                    <td class = "row_item">--</td>
-                    <td class = "row_item">--</td>
-                </tr>
+                <%for(var i in Stock){ %>
+                    <%if(Stock[i].Items != "None" && Stock[i].Inventory < 200 ){ %>
+                        <tr>
+                            <td class="row_item"><%= Stock[i].Items %></td>
+                            <td class="row_item"><%= Stock[i].Inventory %></td>
+                        </tr>
+                    <% } %>
+                <% } %>
             </tbody>
         </table>
     </div>

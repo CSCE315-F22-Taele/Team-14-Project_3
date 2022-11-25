@@ -29,18 +29,20 @@
                 </tr>
             </thead>
             <tbody>
-                <%for(var i in Entrees){ %>
+                <!-- <%for(var i in Entrees){ %>
                     <tr>
                         <td class="row_item"><%= Entrees[i].Items %></td>
                         <td class="row_item"><%= Entrees[i].Inventory %></td>
                     </tr>
-               <% } %>
-               <!-- <%for(var i in Dressings){ %>
-                <tr>
-                    <td><%= Dressings[i].DressingItems %></td>
-                    <td><%= Dressings[i].DressingInventory %></td>
-                </tr>
-           <% } %> -->
+               <% } %> -->
+               <%for(var i in Entrees){ %>
+                    <%if(Entrees[i].Items != "None"){ %>
+                        <tr>
+                            <td class="row_item"><%= Entrees[i].Items %></td>
+                            <td class="row_item"><%= Entrees[i].Inventory %></td>
+                        </tr>
+                    <% } %>
+                <% } %>
             </tbody>
         </table>
     </div>
