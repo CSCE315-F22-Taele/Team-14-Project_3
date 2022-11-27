@@ -344,7 +344,7 @@ function orderFunction(){
     let fullDate = year + "-" + month + "-" + day; 
     const command="INSERT INTO \"Order\" (\"Date\", \"Server ID\", \"Total Amount\", \"Entree ID\", \"Topping IDs\", \"Dressing ID\", \"Starter ID\", \"Drinks ID\" ) values ('" + fullDate + "', "+ 0 +"," + total + "," + entreeCode + ", ARRAY[" + toppingChoice.toString() +"], "  +Dressing +", " + Starter+", " + Drink+ ");";
     // console.log(command);
-    console.log("updated2");
+    console.log("This Client Works");
     
     fetch('/placeorder', {
         method: 'POST',
