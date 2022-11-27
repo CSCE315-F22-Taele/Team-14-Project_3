@@ -105,10 +105,20 @@ for (let i = 0; i < buttons.length - 2; i++) {
             buttons[i].classList.add('active');
             if (buttons[i].classList.contains('entree_btn')) {
                 if (entree_count == 1) {//already have one selected, can't select another entree
-                    alert("You can only select 1 entree!");
+                    Swal.fire({
+                        icon:'error',
+                        title: 'Error!',
+                        text:'You can only select 1 entree!',
+                        allowOutsideClick:false
+                    });
                     buttons[i].classList.remove('active');
                 } else if (combo_count == 1) {
-                    alert("Remove your combo to choose the entree!");
+                    Swal.fire({
+                        icon:'error',
+                        title: 'Error!',
+                        text:'Remove your combo to select an entree!',
+                        allowOutsideClick:false
+                    });
                     buttons[i].classList.remove('active');
                 } else if (entree_count == 0){
                     entree_count++; 
@@ -124,10 +134,21 @@ for (let i = 0; i < buttons.length - 2; i++) {
             }
             if (buttons[i].classList.contains('protein_btn')) {
                 if (protein_count == 1) {
-                    alert("You can only select 1 protein!");
+                    //alert("You can only select 1 protein!");
+                    Swal.fire({
+                        icon:'error',
+                        title: 'Error!',
+                        text:'You can only select 1 protein',
+                        allowOutsideClick:false
+                    });
                     buttons[i].classList.remove('active');
                 } else if (combo_count == 1) {
-                    alert("Remove your combo to choose the protein!");
+                    Swal.fire({
+                        icon:'error',
+                        title: 'Error!',
+                        text:'Remove your combo to select a protein!',
+                        allowOutsideClick:false
+                    });
                     buttons[i].classList.remove('active');
                 } else if (protein_count == 0){
                     protein_count++;
@@ -143,7 +164,12 @@ for (let i = 0; i < buttons.length - 2; i++) {
             }
             if (buttons[i].classList.contains('combo_btn')) {
                 if (protein_count == 1 || entree_count == 1) {
-                    alert("To add a combo, you have to remove your protein and entree selections!");
+                    Swal.fire({
+                        icon:'error',
+                        title: 'Error!',
+                        text:'To add a combo, you have to remove your protein and entree selections!',
+                        allowOutsideClick:false
+                    });
                     buttons[i].classList.remove('active');
                 }
                 else if (combo_count == 0) {
@@ -160,7 +186,12 @@ for (let i = 0; i < buttons.length - 2; i++) {
             }
             if (buttons[i].classList.contains('topping_btn')) {
                 if(topping_count>=4){
-                    alert("You can only select 4 toppings!");
+                    Swal.fire({
+                        icon:'error',
+                        title: 'Error!',
+                        text:'You can only select 4 toppings!',
+                        allowOutsideClick:false
+                    });
                     buttons[i].classList.remove('active');
                 }else{
                     document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
@@ -172,7 +203,12 @@ for (let i = 0; i < buttons.length - 2; i++) {
             }
             if (buttons[i].classList.contains('dressing_btn')) {
                 if(dressing_count>=1){
-                    alert("You can only select 1 dressing!");
+                    Swal.fire({
+                        icon:'error',
+                        title: 'Error!',
+                        text:'You can only select 1 dressing!',
+                        allowOutsideClick:false
+                    });
                     buttons[i].classList.remove('active');
                 }else{
                     dressing_count++;
@@ -184,7 +220,12 @@ for (let i = 0; i < buttons.length - 2; i++) {
             }
             if (buttons[i].classList.contains('starter_btn')) {
                 if(starter_count>=1){
-                    alert("You can only select 1 starter!");
+                    Swal.fire({
+                        icon:'error',
+                        title: 'Error!',
+                        text:'You can only select 1 starter!',
+                        allowOutsideClick:false
+                    });
                     buttons[i].classList.remove('active');
                 }else{
                     starter_count++;
@@ -196,7 +237,12 @@ for (let i = 0; i < buttons.length - 2; i++) {
             }
             if (buttons[i].classList.contains('drink_btn')) {
                 if(drink_count>=1){
-                    alert("You can only select 1 drink!");
+                    Swal.fire({
+                        icon:'error',
+                        title: 'Error!',
+                        text:'You can only select 1 drink!',
+                        allowOutsideClick:false
+                    });
                     buttons[i].classList.remove('active');
                 }else{
                     drink_count++;
@@ -213,7 +259,12 @@ for (let i = buttons.length - 2; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function () {
         if (buttons[i].classList.contains("to_toppings")) {
             if (!(combo_count == 1 || count == 2)) {
-                alert("Select an entree, protein, or a combo before proceeding to toppings!");
+                Swal.fire({
+                    icon:'warning',
+                    title: 'Reminder!',
+                    text:'Select an entree and a protein, or just a combo before proceeding!',
+                    allowOutsideClick:false
+                });
                 event.preventDefault();
             }
             else{
@@ -222,7 +273,12 @@ for (let i = buttons.length - 2; i < buttons.length; i++) {
         }
         if(buttons[i].classList.contains("to_starter")){
             if(!(topping_count==1 || dressing_count==1)){
-                alert("Select an atleast 1 topping and 1 dressing before proceeding!");
+                Swal.fire({
+                    icon:'warning',
+                    title: 'Reminder!',
+                    text:'Select an atleast 1 topping and 1 dressing before proceeding!',
+                    allowOutsideClick:false
+                });
                 event.preventDefault();
             }
             else{
@@ -361,7 +417,15 @@ function orderFunction(){
         .then((data) => console.log(data));
 
     clearStorage();
-    alert("Your order is confirmed! Thank you for choosing us!");
+    Swal.fire({
+        icon:'success',
+        title: 'Your order is confirmed!',
+        text:'Thank you for choosing us!',
+        allowOutsideClick:false
+    });
+    
+    //bring them back to entree page????
+    
 }
 
 

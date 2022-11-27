@@ -10,22 +10,22 @@ const dotenv = require('dotenv').config();
 const session = require('express-session');
 
 //implement firebase
-const firebase = require('firebase/app');
-// TODO: Replace the following with your app's Firebase project configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyCDQ1FLuqa5dFbwZFWHU0qRf3xiq2C7D0I",
-    authDomain: "pom-honey.firebaseapp.com",
-    projectId: "pom-honey",
-    storageBucket: "pom-honey.appspot.com",
-    messagingSenderId: "604614429107",
-    appId: "1:604614429107:web:f8d45bae115533002823c6"
-};
+// const firebase = require('firebase/app');
+// // TODO: Replace the following with your app's Firebase project configuration
+// const firebaseConfig = {
+//     apiKey: "AIzaSyCDQ1FLuqa5dFbwZFWHU0qRf3xiq2C7D0I",
+//     authDomain: "pom-honey.firebaseapp.com",
+//     projectId: "pom-honey",
+//     storageBucket: "pom-honey.appspot.com",
+//     messagingSenderId: "604614429107",
+//     appId: "1:604614429107:web:f8d45bae115533002823c6"
+// };
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+// const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-const firebaseAuth = require("firebase/auth");
+// const firebaseAuth = require("firebase/auth");
 
-const provider = new firebaseAuth.GoogleAuthProvider();
+// const provider = new firebaseAuth.GoogleAuthProvider();
 
 const hostname = 'localhost';
 const port = 3000;
