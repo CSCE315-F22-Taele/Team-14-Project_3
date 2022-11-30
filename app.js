@@ -81,20 +81,8 @@ app.get('/starter', (req, res) => {
 });
 
 app.get('/placeorder', (req, res) => {
-//     servers = []
-//     pool
-//         .query('SELECT \"Server Name\" as \"ServerName\" FROM \"Servers\";')
-//         .then(query_res => {
-//             for (let i = 0; i < query_res.rowCount; i++){
-//                 servers.push(query_res.rows[i]);
-//             }
-//             const data = {servers: servers};
-//             console.log(servers);
-//             res.render('placeorder', data);
-//         });
     
     res.render('placeorder');
-    // res.sendFile(__dirname + '/views/placeorder.ejs');
 });
 
 app.post('/placeorder', (req, res)=> {
@@ -107,10 +95,6 @@ app.post('/placeorder', (req, res)=> {
             console.log("Order placed in database");
         });
 });
-// app.get('/ordersent',(req,res)=> {
-//     console.log("Order Received");
-
-// });
 // --------------- MANAGER RELATED -------------------------
 app.get('/manager', (req, res) => {
     res.render('manager');
@@ -164,12 +148,71 @@ app.get('/inventory', (req, res) => {
 });
 
 app.get('/sales', (req, res) => {
-    res.render('sales');
+    Sales = []
+    res.render('sales',Sales);
+});
+app.post('/sales',(req,res)=>{
+    const { dates } = req.body;
+    console.log(dates);
+    console.log("Date received");
+
+    const current =new Date();//plan to use this for testing to make sure both are before current date
+    let year = current.getFullYear();
+    let month = current.getMonth()+1;
+    let day =current.getDate();
+    let fullCurrent = year + "-" + month + "-" + day;
+    
+    /**
+     * Query set up just waiting for front end to setup.
+     * turn dates into date1 and date2
+     */
+     Sales = [] //use as in queries to change to Items and Count
+    pool
+    .query('SELECT  \"Entrees\".\"Entree Items\", count(\"Order ID\") From \"Order\" Inner Join \"Entrees\" on \"Order\".\"Entree ID\" = \"Entrees\".\"Entree ID\" where \"Date\"  between ' + date1 + ' And ' + date2 + ' group by \"Entrees\".\"Entree Items\" order by \"Entrees\".\"Entree Items\";')
+    .then(query_res => {
+        for (let i = 0; i < query_res.rowCount; i++) {
+            Sales.push(query_res.rows[i]);
+        }
+        pool
+            .query('SELECT  \"Dressings\".\"Dressing Item\", count(\"Order ID\") From \"Order\" Inner Join \"Dressings\" on \"Order\".\"Dressing ID\" = \"Dressings\".\"Dressing ID\" where \"Date\"  between ' + date1 + ' And ' + date2 + ' and \"Dressing Item\"!= "None" group by \"Dressings\".\"Dressing Item\" order by \"Dressings\".\"Dressing Item\";')
+            .then(query_res => {
+                for (let j = 0; j < query_res.rowCount; j++) {
+                    Sales.push(query_res.rows[j]);
+                }
+                pool
+                    .query('SELECT  \"Drinks\".\"Drink Item\", count(\"Order ID\") From \"Order\" Inner Join \"Drinks\" on \"Order\".\"Drinks ID\" = \"Drinks\".\"Drink ID\" where \"Date\"  between ' + date1 + ' And ' + date2 + ' and \"Drink Item\"!="None" group by \"Drinks\".\"Drink Item\" order by \"Drinks\".\"Drink Item\";')
+                    .then(query_res => {
+                        for (let j = 0; j < query_res.rowCount; j++) {
+                            Sales.push(query_res.rows[j]);
+                        }
+                        pool
+                            .query('SELECT  \"Starters\".\"Starter Item\", count(\"Order ID\") From \"Order\" Inner Join \"Starters\" on \"Order\".\"Starter ID\" = \"Starters\".\"Starter ID\" where \"Date\"  between ' + date1 + ' And ' + date2 + ' and \"Starter Item\"!="None" group by \"Starters\".\"Starter Item\" order by \"Starters\".\"Starter Item\";')
+                            .then(query_res => {
+                                for (let j = 0; j < query_res.rowCount; j++) {
+                                    Sales.push(query_res.rows[j]);
+                                }
+                                pool
+                                    .query('SELECT  \"Toppings\".\"Topping Item\", count(\"Order ID\") From \"Order\" Inner Join \"Toppings\" on \"Order\".\"Topping IDs\"[1] = \"Toppings\".\"Topping ID\" where \"Date\"  between ' + date1 + ' And ' + date2 + ' and \"Topping Item\"!="None" group by \"Toppings\".\"Topping Item\" order by \"Toppings\".\"Topping Item\";')
+                                    .then(query_res => {
+                                        for (let j = 0; j < query_res.rowCount; j++) {
+                                            Sales.push(query_res.rows[j]);
+                                        }
+                                        res.render('sales', Sales);
+                                        
+                                    });
+                                
+                            });
+                                
+                    });
+                
+            });
+    });
 });
 
 app.get('/excess', (req, res) => {
     res.render('excess');
 });
+
 app.get('/restock', (req, res) => {
     Stock = []
   

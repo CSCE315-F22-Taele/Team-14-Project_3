@@ -41,14 +41,25 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class = "row_item">--</td>
-                    <td class = "row_item">--</td>
-                </tr>
-                <tr>
-                    <td class = "row_item">--</td>
-                    <td class = "row_item">--</td>
-                </tr>
+                <%if(Sales.length>0){ %>
+                    <%for(var i in Sales){ %>
+                        <%if(Sales[i].Items != "None"){ %>
+                            <tr>
+                                <td class="row_item"><%= Entrees[i].Items %></td>
+                                <td class="row_item"><%= Entrees[i].Count %></td>
+                            </tr>
+                        <% } %>
+                    <% } %>
+                <% }else{ %>
+                    <tr>
+                        <td class="row_item">--</td>
+                        <td class="row_item">--</td>
+                    </tr>
+                    <tr>
+                        <td class="row_item">--</td>
+                        <td class="row_item">--</td>
+                    </tr>
+                <% } %>
             </tbody>
         </table>
     </div>
