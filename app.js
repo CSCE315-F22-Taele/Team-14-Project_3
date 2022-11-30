@@ -98,8 +98,6 @@ app.get('/placeorder', (req, res) => {
 });
 
 app.post('/placeorder', (req, res)=> {
-    // console.log(req.body);
-    // console.log(req);
     const { command } = req.body;
     console.log(command);
     console.log("Command received");
