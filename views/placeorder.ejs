@@ -25,19 +25,39 @@
     <div class="placeorder_wrapper">
       <div class="cart place_order">
         <h1 class="title">Order Cart</h1>
-        <div class="order_contents_wrapper">
-          <!--<div class="order_content" id="cart_content">Your cart is currently empty!</div>-->
+        <div class="order_contents_wrapper placeoview">
           <div class="order_content" id="cart_content"></div>
-          <!-- <div class="order_contents" id="cart_content">Your cart is currently empty!</div> -->
         </div> 
-    </div>
-    <!-- <form action = "/placeorder" method="post"> -->
-      <button type = "submit" onclick="orderFunction()" class="submit_order" id = "submit_order">Place Order!</button>
-    <!-- </form> -->
-    
-    <a href = "entree"><button class = "submit_order" id = "restart_order">Restart Order</button><a>
-    </div>
+        <div class="total">
+          <h2 id="price"></h2>
+        </div>
+      </div>
+      <div class="placeorder_nav">
+        <button type = "submit" onclick="orderFunction()" class="submit_order" id = "submit_order">Place Order!</button>
+        <a href = "entree"><button class = "submit_order" id = "restart_order">Restart Order</button><a>
+      </div>
 
+    </div>
+    <script>
+      let price=8.99;
+      const Starters =["2 Falafels","Hummus & Pita","Vegan Box","Garlic Fries"];
+      const StarterPrices=[2.85,3.50,6.49,1.99];
+
+      if((localStorage.getItem("stored_combo"))==""){
+          price=7.69;
+          if((localStorage.getItem("stored_drink"))!=null && localStorage.getItem("stored_drink")!="None"){
+              price=8.99;
+          }
+          if((localStorage.getItem("stored_starter"))!=null && localStorage.getItem("stored_drink")!="None"){
+              for(let i=0;i<Starters.length;i++){
+                  if(Starters[i]==(localStorage.getItem("stored_starter"))){
+                      price+=StarterPrices[i];
+                  }
+              }
+          }
+      }
+      document.getElementById("price").innerHTML = "Total: $"+price;
+    </script>
     <script src="/js/client.js"></script>
     <!-- <script src="../app.js"></script> -->
 </body>

@@ -81,8 +81,8 @@ app.get('/starter', (req, res) => {
 });
 
 app.get('/placeorder', (req, res) => {
-    
     res.render('placeorder');
+
 });
 
 app.post('/placeorder', (req, res)=> {
@@ -148,8 +148,54 @@ app.get('/inventory', (req, res) => {
 });
 
 app.get('/sales', (req, res) => {
-    Sales = []
-    res.render('sales',Sales);
+    let date1 = "2022-10-15";
+    let date2 = "2022-11-30";
+    
+    /**
+     * Query set up just waiting for front end to setup.
+     * turn dates into date1 and date2
+     */
+     Sales = [] //use as in queries to change to Items and Count
+    pool
+        .query('SELECT  \"Entrees\".\"Entree Items\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Entrees\" on \"Order\".\"Entree ID\" = \"Entrees\".\"Entree ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' group by \"Entrees\".\"Entree Items\" order by \"Entrees\".\"Entree Items\";')
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++) {
+                Sales.push(query_res.rows[i]);
+            }
+            pool
+                .query('SELECT  \"Dressings\".\"Dressing Item\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Dressings\" on \"Order\".\"Dressing ID\" = \"Dressings\".\"Dressing ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Dressing Item\"!= \'None\' group by \"Dressings\".\"Dressing Item\" order by \"Dressings\".\"Dressing Item\";')
+                .then(query_res => {
+                    for (let j = 0; j < query_res.rowCount; j++) {
+                        Sales.push(query_res.rows[j]);
+                    }
+                    pool
+                        .query('SELECT  \"Drinks\".\"Drink Item\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Drinks\" on \"Order\".\"Drinks ID\" = \"Drinks\".\"Drink ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Drink Item\"!=\'None\' group by \"Drinks\".\"Drink Item\" order by \"Drinks\".\"Drink Item\";')
+                        .then(query_res => {
+                            for (let j = 0; j < query_res.rowCount; j++) {
+                                Sales.push(query_res.rows[j]);
+                            }
+                            pool
+                                .query('SELECT  \"Starters\".\"Starter Item\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Starters\" on \"Order\".\"Starter ID\" = \"Starters\".\"Starter ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Starter Item\"!=\'None\' group by \"Starters\".\"Starter Item\" order by \"Starters\".\"Starter Item\";')
+                                .then(query_res => {
+                                    for (let j = 0; j < query_res.rowCount; j++) {
+                                        Sales.push(query_res.rows[j]);
+                                    }
+                                    pool
+                                        .query('SELECT  \"Toppings\".\"Topping Item\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Toppings\" on \"Order\".\"Topping IDs\"[1] = \"Toppings\".\"Topping ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Topping Item\"!=\'None\' group by \"Toppings\".\"Topping Item\" order by \"Toppings\".\"Topping Item\";')
+                                        .then(query_res => {
+                                            for (let j = 0; j < query_res.rowCount; j++) {
+                                                Sales.push(query_res.rows[j]);
+                                            }
+                                            res.render('sales', Sales);
+
+                                        });
+                                    
+                                });
+                                    
+                        });
+                    
+                });
+        });
 });
 app.post('/sales',(req,res)=>{
     const { dates } = req.body;
@@ -168,31 +214,31 @@ app.post('/sales',(req,res)=>{
      */
      Sales = [] //use as in queries to change to Items and Count
     pool
-    .query('SELECT  \"Entrees\".\"Entree Items\", count(\"Order ID\") From \"Order\" Inner Join \"Entrees\" on \"Order\".\"Entree ID\" = \"Entrees\".\"Entree ID\" where \"Date\"  between ' + date1 + ' And ' + date2 + ' group by \"Entrees\".\"Entree Items\" order by \"Entrees\".\"Entree Items\";')
+    .query('SELECT  \"Entrees\".\"Entree Items\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Entrees\" on \"Order\".\"Entree ID\" = \"Entrees\".\"Entree ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' group by \"Entrees\".\"Entree Items\" order by \"Entrees\".\"Entree Items\";')
     .then(query_res => {
         for (let i = 0; i < query_res.rowCount; i++) {
             Sales.push(query_res.rows[i]);
         }
         pool
-            .query('SELECT  \"Dressings\".\"Dressing Item\", count(\"Order ID\") From \"Order\" Inner Join \"Dressings\" on \"Order\".\"Dressing ID\" = \"Dressings\".\"Dressing ID\" where \"Date\"  between ' + date1 + ' And ' + date2 + ' and \"Dressing Item\"!= "None" group by \"Dressings\".\"Dressing Item\" order by \"Dressings\".\"Dressing Item\";')
+            .query('SELECT  \"Dressings\".\"Dressing Item\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Dressings\" on \"Order\".\"Dressing ID\" = \"Dressings\".\"Dressing ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Dressing Item\"!= \'None\' group by \"Dressings\".\"Dressing Item\" order by \"Dressings\".\"Dressing Item\";')
             .then(query_res => {
                 for (let j = 0; j < query_res.rowCount; j++) {
                     Sales.push(query_res.rows[j]);
                 }
                 pool
-                    .query('SELECT  \"Drinks\".\"Drink Item\", count(\"Order ID\") From \"Order\" Inner Join \"Drinks\" on \"Order\".\"Drinks ID\" = \"Drinks\".\"Drink ID\" where \"Date\"  between ' + date1 + ' And ' + date2 + ' and \"Drink Item\"!="None" group by \"Drinks\".\"Drink Item\" order by \"Drinks\".\"Drink Item\";')
+                    .query('SELECT  \"Drinks\".\"Drink Item\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Drinks\" on \"Order\".\"Drinks ID\" = \"Drinks\".\"Drink ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Drink Item\"!=\'None\' group by \"Drinks\".\"Drink Item\" order by \"Drinks\".\"Drink Item\";')
                     .then(query_res => {
                         for (let j = 0; j < query_res.rowCount; j++) {
                             Sales.push(query_res.rows[j]);
                         }
                         pool
-                            .query('SELECT  \"Starters\".\"Starter Item\", count(\"Order ID\") From \"Order\" Inner Join \"Starters\" on \"Order\".\"Starter ID\" = \"Starters\".\"Starter ID\" where \"Date\"  between ' + date1 + ' And ' + date2 + ' and \"Starter Item\"!="None" group by \"Starters\".\"Starter Item\" order by \"Starters\".\"Starter Item\";')
+                            .query('SELECT  \"Starters\".\"Starter Item\" as \"Items\", count(\"Order ID\") From \"Order\" Inner Join \"Starters\" on \"Order\".\"Starter ID\" = \"Starters\".\"Starter ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Starter Item\"!=\'None\' group by \"Starters\".\"Starter Item\" order by \"Starters\".\"Starter Item\";')
                             .then(query_res => {
                                 for (let j = 0; j < query_res.rowCount; j++) {
                                     Sales.push(query_res.rows[j]);
                                 }
                                 pool
-                                    .query('SELECT  \"Toppings\".\"Topping Item\", count(\"Order ID\") From \"Order\" Inner Join \"Toppings\" on \"Order\".\"Topping IDs\"[1] = \"Toppings\".\"Topping ID\" where \"Date\"  between ' + date1 + ' And ' + date2 + ' and \"Topping Item\"!="None" group by \"Toppings\".\"Topping Item\" order by \"Toppings\".\"Topping Item\";')
+                                    .query('SELECT  \"Toppings\".\"Topping Item\" as \"Items\", count(\"Order ID\") From \"Order\" Inner Join \"Toppings\" on \"Order\".\"Topping IDs\"[1] = \"Toppings\".\"Topping ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Topping Item\"!=\'None\' group by \"Toppings\".\"Topping Item\" order by \"Toppings\".\"Topping Item\";')
                                     .then(query_res => {
                                         for (let j = 0; j < query_res.rowCount; j++) {
                                             Sales.push(query_res.rows[j]);
@@ -209,8 +255,232 @@ app.post('/sales',(req,res)=>{
     });
 });
 
-app.get('/excess', (req, res) => {
-    res.render('excess');
+// app.get('/excess', (req, res) => {
+//     res.render('excess');
+// });
+app.get('/excess',(req,res)=>{
+    let date1 = "2022-10-15";
+    let date2 = "2022-11-30";
+    
+    /**
+     * Query set up just waiting for front end to setup.
+     * turn dates into date1 and date2
+     */
+     Sales = [] //use as in queries to change to Items and Count
+     pool
+        .query('SELECT  \"Entrees\".\"Entree Items\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Entrees\" on \"Order\".\"Entree ID\" = \"Entrees\".\"Entree ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' group by \"Entrees\".\"Entree Items\" order by \"Entrees\".\"Entree Items\";')
+        .then(query_res => {
+            for (let i = 0; i < query_res.rowCount; i++) {
+                Sales.push(query_res.rows[i]);
+            }
+            pool
+                .query('SELECT  \"Dressings\".\"Dressing Item\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Dressings\" on \"Order\".\"Dressing ID\" = \"Dressings\".\"Dressing ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Dressing Item\"!= \'None\' group by \"Dressings\".\"Dressing Item\" order by \"Dressings\".\"Dressing Item\";')
+                .then(query_res => {
+                    for (let j = 0; j < query_res.rowCount; j++) {
+                        Sales.push(query_res.rows[j]);
+                    }
+                    pool
+                        .query('SELECT  \"Drinks\".\"Drink Item\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Drinks\" on \"Order\".\"Drinks ID\" = \"Drinks\".\"Drink ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Drink Item\"!=\'None\' group by \"Drinks\".\"Drink Item\" order by \"Drinks\".\"Drink Item\";')
+                        .then(query_res => {
+                            for (let j = 0; j < query_res.rowCount; j++) {
+                                Sales.push(query_res.rows[j]);
+                            }
+                            pool
+                                .query('SELECT  \"Starters\".\"Starter Item\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Starters\" on \"Order\".\"Starter ID\" = \"Starters\".\"Starter ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Starter Item\"!=\'None\' group by \"Starters\".\"Starter Item\" order by \"Starters\".\"Starter Item\";')
+                                .then(query_res => {
+                                    for (let j = 0; j < query_res.rowCount; j++) {
+                                        Sales.push(query_res.rows[j]);
+                                    }
+                                    pool
+                                        .query('SELECT  \"Toppings\".\"Topping Item\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Toppings\" on \"Order\".\"Topping IDs\"[1] = \"Toppings\".\"Topping ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Topping Item\"!=\'None\' group by \"Toppings\".\"Topping Item\" order by \"Toppings\".\"Topping Item\";')
+                                        .then(query_res => {
+                                            for (let j = 0; j < query_res.rowCount; j++) {
+                                                Sales.push(query_res.rows[j]);
+                                            }
+                                        
+
+                                            Entrees = []
+                                            pool
+                                                .query('SELECT \"Entree Items\" as \"Items\", \"Entree Inventory\" as \"Inventory\" FROM \"Entrees\";')
+                                                .then(query_res => {
+                                                    for (let i = 0; i < query_res.rowCount; i++) {
+                                                        Entrees.push(query_res.rows[i]);
+                                                    }
+                                                    pool
+                                                        .query('SELECT \"Dressing Item\" as \"Items\", \"Dressing Inventory\" as \"Inventory\" FROM \"Dressings\";')
+                                                        .then(query_res => {
+                                                            for (let j = 0; j < query_res.rowCount; j++) {
+                                                                Entrees.push(query_res.rows[j]);
+                                                            }
+                                                            pool
+                                                                .query('SELECT \"Drink Item\" as \"Items\", \"Drink Inventory\" as \"Inventory\" FROM \"Drinks\";')
+                                                                .then(query_res => {
+                                                                    for (let j = 0; j < query_res.rowCount; j++) {
+                                                                        Entrees.push(query_res.rows[j]);
+                                                                    }
+                                                                    pool
+                                                                        .query('SELECT \"Starter Item\" as \"Items\", \"Starter Inventory\" as \"Inventory\" FROM \"Starters\";')
+                                                                        .then(query_res => {
+                                                                            for (let j = 0; j < query_res.rowCount; j++) {
+                                                                                Entrees.push(query_res.rows[j]);
+                                                                            }
+                                                                            pool
+                                                                                .query('SELECT \"Topping Item\" as \"Items\", \"Topping Inventory\" as \"Inventory\" FROM \"Toppings\";')
+                                                                                .then(query_res => {
+                                                                                    for (let j = 0; j < query_res.rowCount; j++) {
+                                                                                        Entrees.push(query_res.rows[j]);
+                                                                                    }
+                                                                                    
+                                                                                    
+                                                                                    Excess = []
+                                                                                    for (var r in Sales) {
+                                                                                        sale = Sales[r];
+                                                                                        let sold = parseFloat(sale.count);
+                                                                                        let currInv = parseFloat(Entrees[r].Inventory);
+                                                                                        let oldInv = sold + currInv;
+                                                                                        excess = {};
+                                                                                        excess.Item = sale.Item;
+                                                                                        excess.percent = parseFloat(((sold / oldInv) * 100).toFixed(2));
+                                                                                        console.log(excess);
+                                                                                        if (sold < oldInv * 0.1) {
+                                                                                            Excess.push(excess);
+                                                                                            console.log(excess);
+                                                                                        }
+                                                                                        // Excess.push(Sales[r]);
+                                                                                    }
+
+                                                                                    res.render('excess', Excess);
+                                                                                });
+                                                                            
+                                                                        });
+                                                                            
+                                                                });
+                                                            
+                                                        });
+                                                });
+                                    });
+                                
+                            });
+                                
+                    });
+                
+            });
+    });
+});
+app.post('/excess',(req,res)=>{
+    const { dates } = req.body;
+    console.log(dates);
+    console.log("Date received");
+
+    const current =new Date();//plan to use this for testing to make sure both are before current date
+    let year = current.getFullYear();
+    let month = current.getMonth()+1;
+    let day =current.getDate();
+    let fullCurrent = year + "-" + month + "-" + day;
+    
+    /**
+     * Query set up just waiting for front end to setup.
+     * turn dates into date1 and date2
+     */
+     Sales = [] //use as in queries to change to Items and Count
+    pool
+    .query('SELECT  \"Entrees\".\"Entree Items\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Entrees\" on \"Order\".\"Entree ID\" = \"Entrees\".\"Entree ID\" where \"Date\"  between \'' + date1 + '\' And ' + date2 + ' group by \"Entrees\".\"Entree Items\" order by \"Entrees\".\"Entree Items\";')
+    .then(query_res => {
+        for (let i = 0; i < query_res.rowCount; i++) {
+            Sales.push(query_res.rows[i]);
+        }
+        pool
+            .query('SELECT  \"Dressings\".\"Dressing Item\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Dressings\" on \"Order\".\"Dressing ID\" = \"Dressings\".\"Dressing ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Dressing Item\"!= \'None\' group by \"Dressings\".\"Dressing Item\" order by \"Dressings\".\"Dressing Item\";')
+            .then(query_res => {
+                for (let j = 0; j < query_res.rowCount; j++) {
+                    Sales.push(query_res.rows[j]);
+                }
+                pool
+                    .query('SELECT  \"Drinks\".\"Drink Item\" as \"Item\", count(\"Order ID\") From \"Order\" Inner Join \"Drinks\" on \"Order\".\"Drinks ID\" = \"Drinks\".\"Drink ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Drink Item\"!=\'None\' group by \"Drinks\".\"Drink Item\" order by \"Drinks\".\"Drink Item\";')
+                    .then(query_res => {
+                        for (let j = 0; j < query_res.rowCount; j++) {
+                            Sales.push(query_res.rows[j]);
+                        }
+                        pool
+                            .query('SELECT  \"Starters\".\"Starter Item\" as \"Items\", count(\"Order ID\") From \"Order\" Inner Join \"Starters\" on \"Order\".\"Starter ID\" = \"Starters\".\"Starter ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Starter Item\"!=\'None\' group by \"Starters\".\"Starter Item\" order by \"Starters\".\"Starter Item\";')
+                            .then(query_res => {
+                                for (let j = 0; j < query_res.rowCount; j++) {
+                                    Sales.push(query_res.rows[j]);
+                                }
+                                pool
+                                    .query('SELECT  \"Toppings\".\"Topping Item\" as \"Items\", count(\"Order ID\") From \"Order\" Inner Join \"Toppings\" on \"Order\".\"Topping IDs\"[1] = \"Toppings\".\"Topping ID\" where \"Date\"  between \'' + date1 + '\' And \'' + date2 + '\' and \"Topping Item\"!=\'None\' group by \"Toppings\".\"Topping Item\" order by \"Toppings\".\"Topping Item\";')
+                                    .then(query_res => {
+                                        for (let j = 0; j < query_res.rowCount; j++) {
+                                            Sales.push(query_res.rows[j]);
+                                        }
+                                        
+                                        
+                                        Entrees = []
+                                        pool
+                                            .query('SELECT \"Entree Items\" as \"Items\", \"Entree Inventory\" as \"Inventory\" FROM \"Entrees\";')
+                                            .then(query_res => {
+                                                for (let i = 0; i < query_res.rowCount; i++) {
+                                                    Entrees.push(query_res.rows[i]);
+                                                }
+                                                pool
+                                                    .query('SELECT \"Dressing Item\" as \"Items\", \"Dressing Inventory\" as \"Inventory\" FROM \"Dressings\";')
+                                                    .then(query_res => {
+                                                        for (let j = 0; j < query_res.rowCount; j++) {
+                                                            Entrees.push(query_res.rows[j]);
+                                                        }
+                                                        pool
+                                                            .query('SELECT \"Drink Item\" as \"Items\", \"Drink Inventory\" as \"Inventory\" FROM \"Drinks\";')
+                                                            .then(query_res => {
+                                                                for (let j = 0; j < query_res.rowCount; j++) {
+                                                                    Entrees.push(query_res.rows[j]);
+                                                                }
+                                                                pool
+                                                                    .query('SELECT \"Starter Item\" as \"Items\", \"Starter Inventory\" as \"Inventory\" FROM \"Starters\";')
+                                                                    .then(query_res => {
+                                                                        for (let j = 0; j < query_res.rowCount; j++) {
+                                                                            Entrees.push(query_res.rows[j]);
+                                                                        }
+                                                                        pool
+                                                                            .query('SELECT \"Topping Item\" as \"Items\", \"Topping Inventory\" as \"Inventory\" FROM \"Toppings\";')
+                                                                            .then(query_res => {
+                                                                                for (let j = 0; j < query_res.rowCount; j++) {
+                                                                                    Entrees.push(query_res.rows[j]);
+                                                                                }
+                                                                                
+                                                                                
+                                                                                Excess = []
+                                                                                for (var r in Sales) {
+                                                                                    sale = Sales[r];
+                                                                                    let sold = sale.count
+                                                                                    let currInv = Entrees[r];
+                                                                                    let oldInv = sold + currInv;
+                                                                                    if (sold < oldInv * 0.1) {
+                                                                                        excess = [];
+                                                                                        excess[0] = sale.Item;
+                                                                                        excess.add(sale.get(0));
+                                                                                        var percentSold = ((sold / oldInv) * 100) + "";
+                                                                                        excess[1] = percentSold;
+                                                                                        Excess.push(excess);
+                                                                                    }
+                                                                                }
+
+                                                                                res.render('excess', Excess);
+                                                                            });
+                                                                        
+                                                                    });
+                                                                        
+                                                            });
+                                                        
+                                                    });
+                                            });
+                                    });
+                                
+                            });
+                                
+                    });
+                
+            });
+    });
 });
 
 app.get('/restock', (req, res) => {

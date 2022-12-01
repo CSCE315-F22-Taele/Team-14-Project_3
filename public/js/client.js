@@ -288,6 +288,7 @@ for (let i = buttons.length - 2; i < buttons.length; i++) {
     });
 }
 
+
 function orderFunction(){
     /**
      * 1. Parse through cart
@@ -312,7 +313,7 @@ function orderFunction(){
     let total=7.69;
     let type=-1;
     let Protein=0;
-    if(localStorage.getItem("stored_combo")==null){
+    if(localStorage.getItem("stored_combo")==""){
         for(let i=0;i<Entrees.length;i++){
             if(Entrees[i]==localStorage.getItem("stored_entree")){
                 type=i;

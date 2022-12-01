@@ -20,8 +20,8 @@
 </head>
 <body class="man_subpages">
     <div class="content_wrapper">
-        <h1 class="man_view_title">Excess Report</h1>
-        <h2 class= "inner_title">Generate excess report from start date until today's date.</h2>
+        <h1 class="man_view_title">Generate Excess Report</h1>
+        
         <form>
             <div class="text_field">
                 <label> Enter Start Date (mm-dd-yyyy) </label>
@@ -32,19 +32,30 @@
         <table>
             <thead>
                 <tr>
-                    <td>Excess Product Item</td>
-                    <td>Quantity Left In Stock</td>
+                    <td>Product Item</td>
+                    <td>Percent of Inventory Sold (%)</td>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class = "row_item">--</td>
-                    <td class = "row_item">--</td>
-                </tr>
-                <tr>
-                    <td class = "row_item">--</td>
-                    <td class = "row_item">--</td>
-                </tr>
+                <%if(Excess.length>0){ %>
+                    <%for(var i in Excess){ %>
+                        <%if(Excess[i].Item != "None"){ %>
+                            <tr>
+                                <td class="row_item"><%= Excess[i].Item %></td>
+                                <td class="row_item"><%= Excess[i].percent %></td>
+                            </tr>
+                        <% } %>
+                    <% } %>
+                <% }else{ %>
+                    <tr>
+                        <td class="row_item">--</td>
+                        <td class="row_item">--</td>
+                    </tr>
+                    <tr>
+                        <td class="row_item">--</td>
+                        <td class="row_item">--</td>
+                    </tr>
+                <% } %>
             </tbody>
         </table>
     </div>

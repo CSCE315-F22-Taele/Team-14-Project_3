@@ -43,10 +43,10 @@
             <tbody>
                 <%if(Sales.length>0){ %>
                     <%for(var i in Sales){ %>
-                        <%if(Sales[i].Items != "None"){ %>
+                        <%if(Sales[i].Item != "None"){ %>
                             <tr>
-                                <td class="row_item"><%= Entrees[i].Items %></td>
-                                <td class="row_item"><%= Entrees[i].Count %></td>
+                                <td class="row_item"><%= Sales[i].Item %></td>
+                                <td class="row_item"><%= Sales[i].count %></td>
                             </tr>
                         <% } %>
                     <% } %>
