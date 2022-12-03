@@ -20,20 +20,8 @@
 </head>
 <body class="man_subpages">
     <div class="content_wrapper">
-        <h1 class="man_view_title">Generate Excess Report</h1>
-        <!-- <form>
-            <div class="text_field">
-                <label> Enter Start Date (mm-dd-yyyy) </label>
-                <input type="text" required />
-            </div>
-            <input type="submit" value="Generate!" />
-        </form> -->
-        <form action="/excess" method ="post">
-            <!-- Make your form in here neb and then copy over this to sales with /sales isntead of excess -->
-            <input type = "text" id="test" test ="test">
-            <input type ="submit" value ="Generate">
-
-        </form>
+        <h1 class="man_view_title">Generated Excess Report</h1>
+        
 
         <table>
             <thead>
@@ -43,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                <%if(Excess.length > 0){ %>
+                <%if(Excess.length>0){ %>
                     <%for(var i in Excess){ %>
                         <%if(Excess[i].Item != "None"){ %>
                             <tr>
