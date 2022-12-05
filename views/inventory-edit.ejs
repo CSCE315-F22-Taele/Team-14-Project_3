@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="img/png" size="32x32" href="/img/P&H logo.png"/>
+    <title>View Inventory</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Epilogue:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/css/manager.css" id="page_style"/>
+</head>
+<body class="man_subpages edit">
+    <div class="content_wrapper">
+        <h1 class="man_view_title">Edit Inventory</h1>
+        <form>
+            <div class="text_field">
+                <label class="edit_label">Product Item: </label>
+                <div class="input_wrapper">
+                    <select name="type" id="type" required>
+                        <optgroup label = "Entrees & Proteins">
+                            <option class="">Greens & Grains & Vegetable Medley</option>
+                            <option>Green & Grains & Meatballs</option>
+                            <option>Greens & Grains & Chicken</option>
+                            <option>Green & Grains & Falafel</option>
+                            <option>Green & Grains & Gyro</option>
+
+                            <option>Pita & Vegetable Medley</option>
+                            <option>Pita & Meatballs</option>
+                            <option>Pita & Chicken</option>
+                            <option>Pita & Falafel</option>
+                            <option>Pita & Gyro</option>
+
+                            <option>Grain Bowl & Vegetable Medley</option>
+                            <option>Grain Bowl & Meatballs</option>
+                            <option>Grain Bowl & Chicken</option>
+                            <option>Grain Bowl & Falafel</option>
+                            <option>Grain Bowl & Gyro</option>
+
+                            <option>Salad & Vegetable Medley</option>
+                            <option>Salad & Meatballs</option>
+                            <option>Salad & Chicken</option>
+                            <option>Salad & Falafel</option>
+                            <option>Salad & Gyro</option>
+                            <option>Gyro Wrap</option>
+                            
+                            <!--utilities are under entrees-->>
+                            <option>Utensils</option>
+                            <option>Plastic Bowls</option>
+                        </optgroup>
+                        <optgroup label="Toppings">
+                            <option>Pickled Onions</option>
+                            <option>Diced Cucumbers</option>
+                            <option>Citrus Couscous</option>
+                            <option>Roasted Cauliflower</option>
+                            <option>Tomato-Onion Salad</option>
+                            <option>Kalamata-Olives</option>
+                            <option>Roasted Peppers</option>
+                            <option>Red Cabbage Slaw</option>
+                        </optgroup>
+                        <optgroup label="Dressings">
+                            <option>Hummus</option>
+                            <option>Red Pepper Hummus</option>
+                            <option>Jalapeno Feta</option>
+                            <option>Tzatziki</option>
+                            <option>Greek Vinacrette</option>
+                            <option>Harissa Yogurt</option>
+                            <option>Lemon Herb Tahini</option>
+                            <option>Yogurt Dill</option>
+                        </optgroup>
+                        <optgroup label="Starters">
+                            <option>2 Falafels</option>
+                            <option>Hummus & Pita</option>
+                            <option>Vegan Box</option>
+                            <option>Garlic Fries</option>
+                        </optgroup>
+                        <optgroup label="Drinks">
+                            <option>Bottled Water</option>
+                            <option>Bottled Soda</option>
+                            <option>Fountain Soda</option>
+                        </optgroup>
+                    </select> 
+                </div>
+            </div>
+            <div class="text_field">
+                <label class="edit_label">Product Item Quantity: </label>
+                <div class="input_wrapper">
+                    <input type="number" id="quantiy" placeholder="####" min="1" required />
+                </div>
+            </div>
+            <input type="submit" value="Update!" />
+        </form>
+    </div>
+
+</body>
+</html>
