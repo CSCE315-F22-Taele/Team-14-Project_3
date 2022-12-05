@@ -21,84 +21,66 @@
 <body class="man_subpages edit">
     <div class="content_wrapper">
         <h1 class="man_view_title">Edit Inventory</h1>
-        <form>
+        <form action="/inventory-edit" method ="post">
+            <div class="text_field">
+                <label class="edit_label">Product Type: </label>
+                <div class="input_wrapper">
+                    <select name="type" id="type" size="1">
+                    <option value="chosen_type" selected="selected">-- Select Product Type --</option>
+                  </select>
+                </div>
+            </div>
             <div class="text_field">
                 <label class="edit_label">Product Item: </label>
                 <div class="input_wrapper">
-                    <select name="type" id="type" required>
-                        <optgroup label = "Entrees & Proteins">
-                            <option class="">Greens & Grains & Vegetable Medley</option>
-                            <option>Green & Grains & Meatballs</option>
-                            <option>Greens & Grains & Chicken</option>
-                            <option>Green & Grains & Falafel</option>
-                            <option>Green & Grains & Gyro</option>
-
-                            <option>Pita & Vegetable Medley</option>
-                            <option>Pita & Meatballs</option>
-                            <option>Pita & Chicken</option>
-                            <option>Pita & Falafel</option>
-                            <option>Pita & Gyro</option>
-
-                            <option>Grain Bowl & Vegetable Medley</option>
-                            <option>Grain Bowl & Meatballs</option>
-                            <option>Grain Bowl & Chicken</option>
-                            <option>Grain Bowl & Falafel</option>
-                            <option>Grain Bowl & Gyro</option>
-
-                            <option>Salad & Vegetable Medley</option>
-                            <option>Salad & Meatballs</option>
-                            <option>Salad & Chicken</option>
-                            <option>Salad & Falafel</option>
-                            <option>Salad & Gyro</option>
-                            <option>Gyro Wrap</option>
-                            
-                            <!--utilities are under entrees-->>
-                            <option>Utensils</option>
-                            <option>Plastic Bowls</option>
-                        </optgroup>
-                        <optgroup label="Toppings">
-                            <option>Pickled Onions</option>
-                            <option>Diced Cucumbers</option>
-                            <option>Citrus Couscous</option>
-                            <option>Roasted Cauliflower</option>
-                            <option>Tomato-Onion Salad</option>
-                            <option>Kalamata-Olives</option>
-                            <option>Roasted Peppers</option>
-                            <option>Red Cabbage Slaw</option>
-                        </optgroup>
-                        <optgroup label="Dressings">
-                            <option>Hummus</option>
-                            <option>Red Pepper Hummus</option>
-                            <option>Jalapeno Feta</option>
-                            <option>Tzatziki</option>
-                            <option>Greek Vinacrette</option>
-                            <option>Harissa Yogurt</option>
-                            <option>Lemon Herb Tahini</option>
-                            <option>Yogurt Dill</option>
-                        </optgroup>
-                        <optgroup label="Starters">
-                            <option>2 Falafels</option>
-                            <option>Hummus & Pita</option>
-                            <option>Vegan Box</option>
-                            <option>Garlic Fries</option>
-                        </optgroup>
-                        <optgroup label="Drinks">
-                            <option>Bottled Water</option>
-                            <option>Bottled Soda</option>
-                            <option>Fountain Soda</option>
-                        </optgroup>
-                    </select> 
+                    <select name="item" id="item" size="1">
+                    <option value="chosen_item" selected="selected">-- Select Product Item --</option>
+                  </select>
                 </div>
             </div>
             <div class="text_field">
                 <label class="edit_label">Product Item Quantity: </label>
                 <div class="input_wrapper">
-                    <input type="number" id="quantiy" placeholder="####" min="1" required />
+                    <input type="number" name="quantity" id="quantity" placeholder="####" min="1" required />
                 </div>
             </div>
             <input type="submit" value="Update!" />
         </form>
     </div>
+     <script >
+        var types = {
+            "Entrees and Proteins": ["Green & Grains & Vegetable Medley", "Green & Grains & Meatballs", "Green & Grains & Chicken",
+                                    "Green & Grains & Falafel", "Green & Grains & Gyro", "Pita & Vegetable Medley", "Pita & Meatballs", 
+                                    "Pita & Chicken", "Pita & Falafel", "Pita & Gyro", "Grain Bowl & Vegetable Medley", "Grain Bowl & Meatballs", 
+                                    "Grain Bowl & Chicken", "Grain Bowl & Falafel", "Grain Bowl & Gyro", "Salad & Vegetable Medley", "Salad & Meatballs",
+                                    "Salad & Chicken", "Salad & Falafel", "Salad & Gyro", "Gyro Wrap", "Utensils","Plastic Bowls"],
+            "Toppings": ["Pickled Onions", "Diced Cucumbers", "Citrus Couscous","Roasted Cauliflower", "Tomato-Onion Salad", "Kalamata-Olives",
+                        "Roasted Peppers","Red Cabbage Slaw"],
+            "Dressings": ["Hummus", "Red Pepper Hummus", "Jalapeno Feta", "Tzatziki", "Greek Vinacrette", "Harissa Yogurt",
+                        "Lemon Herb Tahini", "Yogurt Dill"],
+            "Starters": ["2 Falafels", "Hummus & Pita", "Vegan Box", "Garlic Fries"],
+            "Drinks": ["Bottled Water", "Bottled Soda", "Fountain Soda"]
+        };
+        window.onload = function(){
+            const typeSelection = document.querySelector("#type"), itemSelection = document.querySelector("#item");
+            itemSelection.disabled=true;
 
+            for(let type in types){
+                typeSelection.options[typeSelection.options.length] = new Option(type,type);
+            }
+            typeSelection.onchange = (e) => {
+                itemSelection.disabled = false;
+                itemSelection.length = 1; // remove all options bar first
+
+                let items = types[e.target.value];
+                for(let i=0; i<items.length; i++){
+                    itemSelection.options[itemSelection.options.length]= new Option(items[i], items[i]); //string, value
+                }
+                //console.log(document.getElementById("#type").value)
+            };
+        // console.log(document.getElementById("#chosen_type").value);
+           // console.log(document.getElementById("#chosen_item").value);
+        }
+     </script>
 </body>
 </html>

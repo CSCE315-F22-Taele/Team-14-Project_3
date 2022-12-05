@@ -117,7 +117,7 @@ form{
     gap:7px;
     
 }
-label, input{
+label, input,select{
     font-size:17px;
     text-align:center;
 }
@@ -148,6 +148,8 @@ input[type="submit"]:hover{
     font-size:1.2rem;
     text-align: center;
 }
+
+/* modified starting here*/
 .input_wrapper{
     display:flex;
     gap:20px;
@@ -162,7 +164,7 @@ input[type="submit"]:hover{
 }
 .edit{
     display:flex;
-    justify-content:center;
+    justify-content:space-evenly;
     align-items:center;
     padding:0;
 }
@@ -171,4 +173,17 @@ input[type="submit"]:hover{
 }
 #type{
     font-size:17px;
+}
+select{
+    padding: 0.25em 0.5em;
+    cursor: pointer;
+    line-height: 1.1;
+    background-color: #fff;
+    background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+}
+#quantity{
+    padding: 0.25em 0.5em;
+    cursor: pointer;
+    line-height: 1.1;
 }

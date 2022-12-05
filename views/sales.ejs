@@ -22,21 +22,21 @@
     <div class="content_wrapper">
         <h1 class="man_view_title">Generate Sales Report</h1>
         
-        <form>
+        <form action="/sales" method="post">
             <div class="text_field">
                 <label> Enter Start Date (mm-dd-yyyy) </label>
                 <div class="input_wrapper">
-                    <input class="start" type="number" id = "month" placeholder ="mm" min ="1" max ="12" required /> 
-                    <input class="start"type="number" id = "day" placeholder ="dd" min ="1" max ="31" required />
-                    <input class="start" type="number" id = "year" placeholder ="yyyy" min ="2022" max ="2032" required />
+                    <input class="start" type="number" id = "month" name="month1" placeholder ="mm" required /> 
+                    <input class="start"type="number" id = "day" name="day1" placeholder ="dd" required />
+                    <input class="start" type="number" id = "year" name="year1" placeholder ="yyyy" required />
                 </div>
             </div>
             <div class="text_field">
                 <label> Enter End Date (mm-dd-yyyy) </label>
                 <div class="input_wrapper">
-                    <input class="start" type="number" id = "month" placeholder ="mm" required /> 
-                    <input class="start"type="number" id = "day" placeholder ="dd" required />
-                    <input class="start" type="number" id = "year" placeholder ="yyyy" required />
+                    <input class="start" type="number" id = "month" name="month2" placeholder ="mm" required /> 
+                    <input class="start"type="number" id = "day" name="day2" placeholder ="dd" required />
+                    <input class="start" type="number" id = "year" name="year2" placeholder ="yyyy" required />
                 </div>
             </div>
             <input type="submit" value="Generate!" />

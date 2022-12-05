@@ -9,6 +9,10 @@ const app = express();
 const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
 const session = require('express-session');
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() ); 
+app.use(express.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //implement firebase
 // const firebase = require('firebase/app');
@@ -93,6 +97,7 @@ app.post('/placeorder', (req, res)=> {
         .query(command)
         .then(query_res => {
             console.log("Order placed in database");
+            res.redirect('/entree');
         });
 });
 // --------------- MANAGER RELATED -------------------------
@@ -150,45 +155,47 @@ app.get('/inventory-edit',(req,res) => {
     res.render('inventory-edit');
 });
 app.post('/inventory-edit',(req, res) => {
-    const { request } = req.body;
-    let item=request.item;
-    let count=request.count;
+    let type=req.body.type;
+    let item=req.body.item;
+    let count=req.body.quantity;
 
-    if(type=="Starter"){
+    console.log(JSON.stringify(req.body));
+    console.log("Updating: "+item+" to an inventory of: "+count);
+
+    if(type=="Entrees and Proteins"){
         pool
-            .query('UPDATE \"Starters\" SET \"Entree Inventory\"= "' + count + '" WHERE \"Entree Items\"="' + item + '"')
+            .query('UPDATE \"Entrees\" SET \"Entree Inventory\"= \'' + count + '\' WHERE \"Entree Items\"= \'' + item + '\'')
+            .then(query_res => {
+                res.redirect('/inventory');
+            });
+    }
+    if(type=="Starters"){
+        pool
+            .query('UPDATE \"Starters\" SET \"Entree Inventory\"= \'' + count + '\' WHERE \"Entree Items\"=\'' + item + '\'')
             .then(query_res => {
                 res.redirect('/inventory');
             });
     
     }
-    else if(type=="Drink"){
+    else if(type=="Drinks"){
         pool
-            .query('UPDATE \"Drinks\" SET \"Entree Inventory\"= "' + count + '" WHERE \"Entree Items\"="' + item + '"')
+            .query('UPDATE \"Drinks\" SET \"Entree Inventory\"= \'' + count + '\' WHERE \"Entree Items\"=\'' + item + '\'')
             .then(query_res => {
                 res.redirect('/inventory');
             });
     
     }
-    else if(type=="Topping"){
+    else if(type=="Toppings"){
         pool
-            .query('UPDATE \"Toppings\" SET \"Entree Inventory\"= "' + count + '" WHERE \"Entree Items\"="' + item + '"')
+            .query('UPDATE \"Toppings\" SET \"Entree Inventory\"= \'' + count + '\' WHERE \"Entree Items\"=\'' + item + '\'')
             .then(query_res => {
                 res.redirect('/inventory');
             });
     
     }
-    else if(type=="Dressing"){
+    else if(type=="Dressings"){
         pool
-            .query('UPDATE \"Dressings\" SET \"Entree Inventory\"= "' + count + '" WHERE \"Entree Items\"="' + item + '"')
-            .then(query_res => {
-                res.redirect('/inventory');
-            });
-    
-    }
-    if(type=="Entree"){
-        pool
-            .query('UPDATE \"Entrees\" SET \"Entree Inventory\"= "' + count + '" WHERE \"Entree Items\"="' + item + '"')
+            .query('UPDATE \"Dressings\" SET \"Entree Inventory\"= \'' + count + '\' WHERE \"Entree Items\"=\'' + item + '\'')
             .then(query_res => {
                 res.redirect('/inventory');
             });
@@ -206,9 +213,6 @@ app.get('/sales-success',(req,res)=>{
 });
 
 app.post('/sales',(req,res)=>{
-    const { dates } = req.body;
-    console.log(dates);
-    console.log("Date received");
 
     const current =new Date();//plan to use this for testing to make sure both are before current date
     let year = current.getFullYear();
@@ -220,8 +224,8 @@ app.post('/sales',(req,res)=>{
      * Query set up just waiting for front end to setup.
      * turn dates into date1 and date2
      */
-     let date1 = "2022-10-15";
-     let date2 = "2022-11-30";
+     let date1 = ""+req.body.year1+"-"+req.body.month1+"-"+req.body.day1;
+     let date2 = ""+req.body.year2+"-"+req.body.month2+"-"+req.body.day2;
      
      /**
       * Query set up just waiting for front end to setup.
@@ -279,17 +283,13 @@ app.get('/excess-success',(req,res)=>{
     res.render('excess-success',Excess);
 });
 app.post('/excess',(req,res)=>{
-    let date1 = "2022-10-15";
-    let date2 = "2022-11-30";
-    const { dates } = req.body;
-    console.log(dates);
-    console.log("Date received");
+    let date1 = ""+req.body.year1+"-"+req.body.month1+"-"+req.body.day1;
 
     const current =new Date();//plan to use this for testing to make sure both are before current date
     let year = current.getFullYear();
     let month = current.getMonth()+1;
     let day =current.getDate();
-    let fullCurrent = year + "-" + month + "-" + day;
+    let date2 = year + "-" + month + "-" + day;
     
     /**
      * Query set up just waiting for front end to setup.

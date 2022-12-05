@@ -415,18 +415,19 @@ function orderFunction(){
     })  .then((res) => {
             return res.json();
         })
-        .then((data) => console.log(data));
 
     clearStorage();
+
     Swal.fire({
         icon:'success',
         title: 'Your order is confirmed!',
         text:'Thank you for choosing us!',
         allowOutsideClick:false
+    }).then((res)=>{
+        location.href="entree";
     });
-    
+    //location.href="entree";
     //bring them back to entree page????
-    
 }
 
 
