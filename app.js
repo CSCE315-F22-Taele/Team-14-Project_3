@@ -171,7 +171,7 @@ app.post('/inventory-edit',(req, res) => {
     }
     if(type=="Starters"){
         pool
-            .query('UPDATE \"Starters\" SET \"Entree Inventory\"= \'' + count + '\' WHERE \"Entree Items\"=\'' + item + '\'')
+            .query('UPDATE \"Starters\" SET \"Starter Inventory\"= \'' + count + '\' WHERE \"Starter Item\"=\'' + item + '\'')
             .then(query_res => {
                 res.redirect('/inventory');
             });
@@ -179,7 +179,7 @@ app.post('/inventory-edit',(req, res) => {
     }
     else if(type=="Drinks"){
         pool
-            .query('UPDATE \"Drinks\" SET \"Entree Inventory\"= \'' + count + '\' WHERE \"Entree Items\"=\'' + item + '\'')
+            .query('UPDATE \"Drinks\" SET \"Drink Inventory\"= \'' + count + '\' WHERE \"Drink Item\"=\'' + item + '\'')
             .then(query_res => {
                 res.redirect('/inventory');
             });
@@ -187,7 +187,7 @@ app.post('/inventory-edit',(req, res) => {
     }
     else if(type=="Toppings"){
         pool
-            .query('UPDATE \"Toppings\" SET \"Entree Inventory\"= \'' + count + '\' WHERE \"Entree Items\"=\'' + item + '\'')
+            .query('UPDATE \"Toppings\" SET \"Topping Inventory\"= \'' + count + '\' WHERE \"Topping Item\"=\'' + item + '\'')
             .then(query_res => {
                 res.redirect('/inventory');
             });
@@ -195,7 +195,7 @@ app.post('/inventory-edit',(req, res) => {
     }
     else if(type=="Dressings"){
         pool
-            .query('UPDATE \"Dressings\" SET \"Entree Inventory\"= \'' + count + '\' WHERE \"Entree Items\"=\'' + item + '\'')
+            .query('UPDATE \"Dressings\" SET \"Dressing Inventory\"= \'' + count + '\' WHERE \"Dressing Item\"=\'' + item + '\'')
             .then(query_res => {
                 res.redirect('/inventory');
             });
