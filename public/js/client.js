@@ -442,7 +442,6 @@ function orderFunction(){
         allowEscapeKey:false,
         reverseButtons:true,
         width:'37rem',
-        className: 'my-custom-class',
       }).then((result) => {
         if (result.isConfirmed) {
           location.href="entree";
