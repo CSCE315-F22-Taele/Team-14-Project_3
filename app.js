@@ -87,6 +87,9 @@ app.get('/starter', (req, res) => {
 app.get('/placeorder', (req, res) => {
     res.render('placeorder');
 });
+app.get('/map', (req, res) => {
+    res.render('map');
+});
 
 app.post('/placeorder', (req, res)=> {
     const { command } = req.body;
