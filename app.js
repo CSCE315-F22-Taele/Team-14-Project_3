@@ -11,7 +11,6 @@ const dotenv = require('dotenv').config();
 const session = require('express-session');
 var bodyParser = require('body-parser')
 app.use( bodyParser.json() ); 
-app.use(express.urlencoded());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //implement firebase

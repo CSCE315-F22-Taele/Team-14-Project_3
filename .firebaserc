@@ -1,8 +1,0 @@
-{
-  "projects": {
-    "default": "pom-honey",
-    "web-app": "pom-honey"
-  },
-  "targets": {},
-  "etags": {}
-}

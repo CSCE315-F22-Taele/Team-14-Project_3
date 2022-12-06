@@ -72,16 +72,6 @@ body{
 .text_field input:focus ~ span::before, .text_field input:valid ~span::before{
     width:100%;
 }
-input[type="submit"]{
-    border-radius:5px;
-    border:none;
-    font-size:1.125rem;
-    width:100%;
-    height:55px;
-    background:#2691d9;
-    margin-bottom:40px;
-    color:white;
-}
 .customer{
     margin-top:1.75rem;
     display:flex;
@@ -106,4 +96,43 @@ input[type="submit"]{
     color:white;
     background-color:green;
     cursor:pointer;
+}
+.login_button_wrapper{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:25px;
+}
+input[type="submit"]{
+    border-radius:5px;
+    border:none;
+    font-size:1.125rem;
+    height:55px;
+    background:#2691d9;
+    margin-bottom:40px;
+    color:white;
+    width:100%;
+}
+input[type="submit"]:hover{
+    background:#439dda;
+    transform:translateY(-5px);
+    cursor:pointer;
+}
+
+.google{
+    border-radius:5px;
+    border:none;
+    font-size:1.125rem;
+    height:55px;
+    background:#d3d6d8;
+    margin-bottom:40px;
+    color:black;
+    width:100%;
+}
+
+#map {
+    height: 400px;
+    /* The height is 400 pixels */
+    width: 100%;
+    /* The width is the width of the web page */
 }
