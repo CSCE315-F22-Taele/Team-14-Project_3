@@ -418,14 +418,41 @@ function orderFunction(){
 
     clearStorage();
 
+    // Swal.fire({
+    //     icon:'success',
+    //     title: 'Your order is confirmed!',
+    //     text:'Thank you for choosing us!',
+    //     allowOutsideClick:false
+    // }).then((res)=>{
+    //     location.href="entree";
+    // });
     Swal.fire({
         icon:'success',
         title: 'Your order is confirmed!',
         text:'Thank you for choosing us!',
-        allowOutsideClick:false
-    }).then((res)=>{
-        location.href="entree";
-    });
+        allowOutsideClick:false,
+        showCancelButton: true,
+        showDenyButton: true,
+        confirmButtonText: 'Order More!',
+        denyButtonText: 'Back to Login',
+        cancelButtonText:'Store Pick Up Directions',
+        cancelButtonColor:'#6459DD',
+        confirmButtonColor:'#28a745',
+        allowOutsideClick:false,
+        allowEscapeKey:false,
+        reverseButtons:true,
+        width:'37rem',
+        className: 'my-custom-class',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          location.href="entree";
+        } else if (result.isDenied) {
+          location.href="login";
+        }
+        else{
+            location.href="map";
+        }
+      });
     //location.href="entree";
     //bring them back to entree page????
 }
