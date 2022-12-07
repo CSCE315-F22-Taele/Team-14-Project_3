@@ -4,6 +4,9 @@
 // locate you.
 let map, infoWindow;
 
+/**
+ * This function creates and displays the Google map
+ */
 function initMap() {
     const pom_and_honey = {lat: 30.6123, lng: -96.3413};
     
@@ -18,45 +21,27 @@ function initMap() {
         map: map,
     });
 
-    const locationButton = document.createElement("button");
-
-    locationButton.textContent = "Pan to Current Location";
-    locationButton.classList.add("custom-map-control-button");
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-    locationButton.addEventListener("click", () => {
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-            const pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
+    const getDirectionsButton = document.getElementById("proceed");
+    getDirectionsButton.addEventListener("click", ()=>{
+        // Try HTML5 geolocation
+    if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+            // Use the user's current location as the origin of the route
+            const origin = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
             };
-
-            infoWindow.setPosition(pos);
-            infoWindow.setContent("Location found.");
-            infoWindow.open(map);
-            map.setCenter(pos);
-            },
-            () => {
-            handleLocationError(true, infoWindow, map.getCenter());
-            }
-        );
+            // Open a new tab or window in the user's browser and navigate to the Google Maps URL with the appropriate query parameters
+            window.open(
+            `https://www.google.com/maps/dir/?api=1&origin=${origin.lat},${origin.lng}&destination=${pom_and_honey.lat},${pom_and_honey.lng}&travelmode=driving`,
+            "_blank"
+            );
+        });
         } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
+        // If the user's browser doesn't support geolocation, show an error message
+        window.alert("Geolocation is not supported by this browser.");
         }
     });
-}
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(
-    browserHasGeolocation
-      ? "Error: The Geolocation service failed."
-      : "Error: Your browser doesn't support geolocation."
-  );
-  infoWindow.open(map);
 }
 
 window.initMap = initMap;

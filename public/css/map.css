@@ -54,6 +54,12 @@ body{
     font-size:20px;
     width:180px;
 }
+#proceed{
+    background-color:rgb(3, 102, 3);
+    color:white;
+    font-size:20px;
+    width:250px;
+}
 .nav_btn:hover{
     transform:translateY(-5px);
     background-color:rgb(201, 55, 55);

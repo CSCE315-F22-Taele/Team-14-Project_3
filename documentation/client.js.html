@@ -1,4 +1,32 @@
-let buttons = document.querySelectorAll("button");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: client.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: client.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let buttons = document.querySelectorAll("button");
 let count = 0;
 let entree_count = 0;
 let protein_count = 0;
@@ -15,44 +43,44 @@ let drink_count = 0;
 function fillCart() {
     if (!(localStorage.getItem("stored_entree") == ""  || localStorage.getItem("stored_entree") == null)) {
         document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-        <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_entree")}</div>
+        &lt;div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_entree")}&lt;/div>
         `)
     }
     if (!(localStorage.getItem("stored_protein") == ""  || localStorage.getItem("stored_protein") == null)) {
         document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-        <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_protein")}</div>
+        &lt;div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_protein")}&lt;/div>
         `)
     }
     if (!(localStorage.getItem("stored_combo") == ""  || localStorage.getItem("stored_combo") == null)) {
         document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-        <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_combo")}</div>
+        &lt;div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_combo")}&lt;/div>
         `)
     }
-    for (let i = 1; i < 5; i++) {
+    for (let i = 1; i &lt; 5; i++) {
         if (!(localStorage.getItem("stored_topping" + i) == ""  || localStorage.getItem("stored_topping" + i) == null)) {
             document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-            <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_topping" + i)}</div>
+            &lt;div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_topping" + i)}&lt;/div>
             `)
         }
     }
     if (!(localStorage.getItem("stored_dressing") == ""  || localStorage.getItem("stored_dressing") == null)) {
         document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-        <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_dressing")}</div>
+        &lt;div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_dressing")}&lt;/div>
         `)
     }
     if (!(localStorage.getItem("stored_drink") == ""  || localStorage.getItem("stored_drink") == null)) {
         document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-        <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_drink")}</div>
+        &lt;div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_drink")}&lt;/div>
         `)
     }
     if (!(localStorage.getItem("stored_starter") == ""  || localStorage.getItem("stored_starter") == null)) {
         document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-        <div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_starter")}</div>
+        &lt;div class="inner_order_content" id="inner_cart_content">${localStorage.getItem("stored_starter")}&lt;/div>
         `)
     }
 }
 fillCart();
-for (let i = 0; i < buttons.length - 2; i++) {
+for (let i = 0; i &lt; buttons.length - 2; i++) {
     buttons[i].addEventListener('click', function () {
         if (buttons[i].classList.contains('active')) {
             count--;
@@ -90,7 +118,7 @@ for (let i = 0; i < buttons.length - 2; i++) {
             }
             
             let d = document.getElementsByClassName('inner_order_content');
-            for (let j = 0; j < d.length; j++) {
+            for (let j = 0; j &lt; d.length; j++) {
                 //console.log(d[j].innerHTML);
                 //console.log(buttons[j].innerHTML);
                 if (buttons[i].innerHTML == d[j].innerHTML) {
@@ -125,7 +153,7 @@ for (let i = 0; i < buttons.length - 2; i++) {
                         document.getElementById('cart_content').innerHTML = "";
                     }
                     document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-                    <div class="inner_order_content" id="inner_cart_content">${this.innerHTML}</div>
+                    &lt;div class="inner_order_content" id="inner_cart_content">${this.innerHTML}&lt;/div>
                     `)
                     count++;
                     localStorage.setItem("stored_entree", this.innerHTML);
@@ -155,7 +183,7 @@ for (let i = 0; i < buttons.length - 2; i++) {
                         document.getElementById('cart_content').innerHTML = "";
                     }
                     document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-                    <div class="inner_order_content" id="inner_cart_content">${this.innerHTML}</div>
+                    &lt;div class="inner_order_content" id="inner_cart_content">${this.innerHTML}&lt;/div>
                     `)
                     count++;
                     localStorage.setItem("stored_protein", this.innerHTML);
@@ -177,7 +205,7 @@ for (let i = 0; i < buttons.length - 2; i++) {
                         document.getElementById('cart_content').innerHTML = "";
                     }
                     document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-                    <div class="inner_order_content" id="inner_cart_content">${this.innerHTML}</div>
+                    &lt;div class="inner_order_content" id="inner_cart_content">${this.innerHTML}&lt;/div>
                     `)
                     count++;
                     localStorage.setItem("stored_combo", this.innerHTML);
@@ -194,7 +222,7 @@ for (let i = 0; i < buttons.length - 2; i++) {
                     buttons[i].classList.remove('active');
                 }else{
                     document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-                    <div class="inner_order_content" id="inner_cart_content">${this.innerHTML}</div>
+                    &lt;div class="inner_order_content" id="inner_cart_content">${this.innerHTML}&lt;/div>
                     `)
                     localStorage.setItem("stored_topping" + (topping_count + 1), this.innerHTML);
                     topping_count++;
@@ -212,7 +240,7 @@ for (let i = 0; i < buttons.length - 2; i++) {
                 }else{
                     dressing_count++;
                     document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-                    <div class="inner_order_content" id="inner_cart_content">${this.innerHTML}</div>
+                    &lt;div class="inner_order_content" id="inner_cart_content">${this.innerHTML}&lt;/div>
                     `)
                     localStorage.setItem("stored_dressing", this.innerHTML);
                 }
@@ -229,7 +257,7 @@ for (let i = 0; i < buttons.length - 2; i++) {
                 }else{
                     starter_count++;
                     document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-                    <div class="inner_order_content" id="inner_cart_content">${this.innerHTML}</div>
+                    &lt;div class="inner_order_content" id="inner_cart_content">${this.innerHTML}&lt;/div>
                     `)
                     localStorage.setItem("stored_starter", this.innerHTML);
                 }
@@ -246,7 +274,7 @@ for (let i = 0; i < buttons.length - 2; i++) {
                 }else{
                     drink_count++;
                     document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
-                    <div class="inner_order_content" id="inner_cart_content">${this.innerHTML}</div>
+                    &lt;div class="inner_order_content" id="inner_cart_content">${this.innerHTML}&lt;/div>
                     `)
                     localStorage.setItem("stored_drink", this.innerHTML);
                 }
@@ -254,7 +282,7 @@ for (let i = 0; i < buttons.length - 2; i++) {
         }
     });
 }
-for (let i = buttons.length - 2; i < buttons.length; i++) {
+for (let i = buttons.length - 2; i &lt; buttons.length; i++) {
     buttons[i].addEventListener('click', function () {
         if (buttons[i].classList.contains("to_toppings")) {
             if (!(combo_count == 1 || count == 2)) {
@@ -297,13 +325,13 @@ for (let i = buttons.length - 2; i < buttons.length; i++) {
 function orderFunction(){
     //array of options
     console.log("Order Function Started");
-    const Entrees =["Grain Bowl","Salad","Pita","Green & Grains"];
+    const Entrees =["Grain Bowl","Salad","Pita","Green &amp; Grains"];
     const Proteins =["Gyro","Falafel","Vegetable Medley","Meatballs","Chicken"];//need to finish toppings list
     
     const Toppings =["Pickled Onions", "Diced Cucumbers","Citrus Couscous","Roasted Cauliflower","Tomato-Onion Salad","Kalamata-Olives","Roasted Peppers","Red Cabbage Slaw"];
     const Dressings=["Hummus","Red Pepper Hummus","Jalepeno Feta","Tzatziki","Greek Vinagrette","Harissa Yogurt","Lemon Herb Tahini","Yogurt Dill"];
     
-    const Starters =["2 Falafels","Hummus & Pita","Vegan Box","Garlic Fries"];
+    const Starters =["2 Falafels","Hummus &amp; Pita","Vegan Box","Garlic Fries"];
     const StarterPrices=[2.85,3.50,6.49,1.99]
     const Drinks =["Bottled Water","Bottled Soda","Fountain Soda"];
 
@@ -313,13 +341,13 @@ function orderFunction(){
     let type=-1;
     let Protein=0;
     if(localStorage.getItem("stored_combo")==""){
-        for(let i=0;i<Entrees.length;i++){
+        for(let i=0;i&lt;Entrees.length;i++){
             if(Entrees[i]==localStorage.getItem("stored_entree")){
                 type=i;
             }
         }
 
-        for(let i=0;i<Proteins.length;i++){
+        for(let i=0;i&lt;Proteins.length;i++){
             if(Proteins[i]==localStorage.getItem("stored_protein")){
                 Protein=i+1;
             }
@@ -335,7 +363,7 @@ function orderFunction(){
     let entreeCode=type*5+Protein;//generates entree code
 
     let Dressing=0;
-    for(let i=0;i<Dressings.length;i++){
+    for(let i=0;i&lt;Dressings.length;i++){
         if(Dressings[i]==localStorage.getItem("stored_dressing")){
             Dressing=i+1;
         }
@@ -344,14 +372,14 @@ function orderFunction(){
     const toppingChoice=[0,0,0,0];//need to set up toppings need confirmation from front
     
     if(localStorage.getItem("stored_topping1")!=null){
-        for(let i=0;i<Toppings.length;i++){
+        for(let i=0;i&lt;Toppings.length;i++){
             if(Toppings[i]==localStorage.getItem("stored_topping1")){
                 toppingChoice[0]=i+1;
             }
         }
     }
     if(localStorage.getItem("stored_topping2")!=null){
-        for(let i=0;i<Toppings.length;i++){
+        for(let i=0;i&lt;Toppings.length;i++){
             if(Toppings[i]==localStorage.getItem("stored_topping2")){
                 toppingChoice[1]=i+1;
             }
@@ -359,7 +387,7 @@ function orderFunction(){
     }
 
     if(localStorage.getItem("stored_topping3")!=null){
-        for(let i=0;i<Toppings.length;i++){
+        for(let i=0;i&lt;Toppings.length;i++){
             if(Toppings[i]==localStorage.getItem("stored_topping3")){
                 toppingChoice[2]=i+1;
             }
@@ -367,7 +395,7 @@ function orderFunction(){
     }
 
     if(localStorage.getItem("stored_topping4")!=null){
-        for(let i=0;i<Toppings.length;i++){
+        for(let i=0;i&lt;Toppings.length;i++){
             if(Toppings[i]==localStorage.getItem("stored_topping4")){
                 toppingChoice[0]=i+1;
             }
@@ -376,7 +404,7 @@ function orderFunction(){
 
     let Drink=0;
     if(localStorage.getItem("stored_drink")!=null){
-        for(let i=0;i<Drinks.length;i++){
+        for(let i=0;i&lt;Drinks.length;i++){
             if(Drinks[i]==localStorage.getItem("stored_drink")){
                 Drink=i+1;
             }
@@ -385,7 +413,7 @@ function orderFunction(){
     }
     let Starter=0;
     if(localStorage.getItem("stored_starter")!=null){
-        for(let i=0;i<Starters.length;i++){
+        for(let i=0;i&lt;Starters.length;i++){
             if(Starters[i]==localStorage.getItem("stored_starter")){
                 Starter=i+1;
                 total+=StarterPrices[i];
@@ -471,7 +499,7 @@ function clearStorage() {
     localStorage.setItem("stored_drink", "");
     
     let d = document.getElementsByClassName('inner_order_content');
-    for (let j = 0; j < d.length; j++) {
+    for (let j = 0; j &lt; d.length; j++) {
         //console.log(d[j].innerHTML);
         //console.log(buttons[j].innerHTML);
         //if (buttons[j].innerHTML == d[j].innerHTML) {
@@ -494,4 +522,26 @@ function clearTandS() {
     localStorage.setItem("stored_dressing", "");
     localStorage.setItem("stored_starter", "");
     localStorage.setItem("stored_drink", "");
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#clearStorage">clearStorage</a></li><li><a href="global.html#clearTandS">clearTandS</a></li><li><a href="global.html#fillCart">fillCart</a></li><li><a href="global.html#initMap">initMap</a></li><li><a href="global.html#orderFunction">orderFunction</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Tue Dec 06 2022 21:58:19 GMT-0600 (Central Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
