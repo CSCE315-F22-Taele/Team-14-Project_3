@@ -31,8 +31,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // const provider = new firebaseAuth.GoogleAuthProvider();
 
-const hostname = 'localhost';
-const port = 3000;
+// const hostname = 'localhost';
+// const port = 3000;
+const PORT = process.env.PORT || 3030;
 
 const pool = new Pool({
     user: process.env.PSQL_USER,
@@ -449,8 +450,8 @@ app.get('/restock', (req, res) => {
 
 //app.use('/public', express.static('public'));
 
-app.listen(port, hostname, () => {
-    console.log(`Pom&Honey Web App listening at http://localhost:${port}`);
+app.listen(PORT, hostname, () => {
+    console.log(`Pom&Honey Web App listening at http://localhost:${PORT}`);
 });
 /*app.listen(port, orderFunction(),() =>{
     console.log('OrderFunction Recognized');
