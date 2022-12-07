@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@google-cloud/translate": "^7.0.4",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "ejs-lint": "^2.0.0",
@@ -13,5 +14,23 @@
     "pg": "^8.8.0",
     "pug": "^3.0.2",
     "remove": "^0.1.5"
-  }
+  },
+  "name": "team-14-project_3",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CSCE315-F22-Taele/Team-14-Project_3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CSCE315-F22-Taele/Team-14-Project_3/issues"
+  },
+  "homepage": "https://github.com/CSCE315-F22-Taele/Team-14-Project_3#readme",
+  "description": ""
 }
