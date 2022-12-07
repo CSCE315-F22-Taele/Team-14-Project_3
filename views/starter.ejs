@@ -58,7 +58,47 @@
         <a href="topping"><button class="nav_btn" onclick="clearTandS()" id="back">Back to Toppings & Dressings</button></a>
         <a href="placeorder"><button class="nav_btn" id="proceed">Proceed to Checkout</button></a>
      </div>
-    <script src="/js/client.js"></script>
+     <script src="/js/client.js"></script>
+     <script>
+      lang=localStorage.getItem("Language");
+        if(lang!=undefined && lang!='en'){
+          translateClass("order_content");
+          translateClass("label");
+          translateClass("title");
+          translateClass("nav_btn");
+          translateClass("nav_btn to_toppings");
+          translateClass("misc");
+          translateClass("prompt")
+        }
+
+        function translateClass(className){
+            elements =document.getElementsByClassName(className);
+            console.log(elements);
+            for( i=0; i<elements.length;i++){
+              translate(elements[i]);
+            }
+        }
+        function translate(element){
+          text=element.innerText;
+          //test =document.getElementById("test").innerText,localStorage.getItem("Language");
+          console.log("Translating: "+text);
+          fetch('/translate', {
+              method: 'POST',
+              headers: {
+                  Authorization: 'Bearer abcdxyz',
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                  "Language": lang,
+                  "Text": text
+              }),
+          }) .then((res)=>res.json()) .then(x =>{
+                // console.log(x)
+                element.innerHTML=x;
+                //return x;
+          })
+        }
+    </script>
     <!-- <script src="../app.js"></script> -->
 </body>
 </html>

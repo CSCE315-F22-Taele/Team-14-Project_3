@@ -103,7 +103,7 @@ body{
     justify-content:center;
     gap:25px;
 }
-input[type="submit"]{
+.login{
     border-radius:5px;
     border:none;
     font-size:1.125rem;
@@ -113,12 +113,11 @@ input[type="submit"]{
     color:white;
     width:100%;
 }
-input[type="submit"]:hover{
+.login:hover{
     background:#439dda;
     transform:translateY(-5px);
     cursor:pointer;
 }
-
 .google{
     border-radius:5px;
     border:none;

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Our Location</title>
+    <title class="misc">Our Location</title>
     
     <link rel="icon" type="img/png" size="32x32" href="/img/P&H logo.png"/>
     <link
@@ -26,6 +26,7 @@
           <div id="map"></div>
           <div class="nav_bar" id = "manager_nav">
             <a href="login"><button class="nav_btn" id="back">Exit</button></a>
+            <button class="nav_btn" id="proceed">Get Directions!</button>
          </div>
     </div>
 
@@ -36,6 +37,42 @@
      with https://www.npmjs.com/package/@googlemaps/js-api-loader.
     -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxerlD9wvJ3ZHh-syk11A8AFQkiUqx_n4&callback=initMap&v=weekly" defer>
+    </script>
+    <script>
+      lang=localStorage.getItem("Language");
+        if(lang!=undefined && lang!='en'){
+          translateClass("title");
+          translateClass("nav_btn");
+          translateClass("misc");
+        }
+
+        function translateClass(className){
+            elements =document.getElementsByClassName(className);
+            console.log(elements);
+            for( i=0; i<elements.length;i++){
+              translate(elements[i]);
+            }
+        }
+        function translate(element){
+          text=element.innerText;
+          //test =document.getElementById("test").innerText,localStorage.getItem("Language");
+          console.log("Translating: "+text);
+          fetch('/translate', {
+              method: 'POST',
+              headers: {
+                  Authorization: 'Bearer abcdxyz',
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                  "Language": lang,
+                  "Text": text
+              }),
+          }) .then((res)=>res.json()) .then(x =>{
+                // console.log(x)
+                element.innerHTML=x;
+                //return x;
+          })
+        }
     </script>
   </body>
 </html>

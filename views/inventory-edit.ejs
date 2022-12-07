@@ -26,7 +26,7 @@
                 <label class="edit_label">Product Type: </label>
                 <div class="input_wrapper">
                     <select name="type" id="type" size="1">
-                    <option value="chosen_type" selected="selected">-- Select Product Type --</option>
+                    <option value="chosen_type" selected="selected" class="misc">-- Select Product Type --</option>
                   </select>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                 <label class="edit_label">Product Item: </label>
                 <div class="input_wrapper">
                     <select name="item" id="item" size="1">
-                    <option value="chosen_item" selected="selected">-- Select Product Item --</option>
+                    <option value="chosen_item" selected="selected" class="misc">-- Select Product Item --</option>
                   </select>
                 </div>
             </div>
@@ -82,5 +82,41 @@
            // console.log(document.getElementById("#chosen_item").value);
         }
      </script>
+     <script>
+        lang=localStorage.getItem("Language");
+          if(lang!=undefined && lang!='en'){
+            translateClass("man_view_title");
+            translateClass("edit_label");
+            translateClass("misc");
+          }
+  
+          function translateClass(className){
+              elements =document.getElementsByClassName(className);
+              console.log(elements);
+              for( i=0; i<elements.length;i++){
+                translate(elements[i]);
+              }
+          }
+          function translate(element){
+            text=element.innerText;
+            //test =document.getElementById("test").innerText,localStorage.getItem("Language");
+            console.log("Translating: "+text);
+            fetch('/translate', {
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer abcdxyz',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "Language": lang,
+                    "Text": text
+                }),
+            }) .then((res)=>res.json()) .then(x =>{
+                  // console.log(x)
+                  element.innerHTML=x;
+                  //return x;
+            })
+          }
+      </script>
 </body>
 </html>

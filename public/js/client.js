@@ -9,10 +9,9 @@ let starter_count = 0;
 let drink_count = 0;
 
 
-/*Plan of action:
-if we use cart_content we have to parse through that entire string of choices. also adding the choices to cart_content would be diff
-can we add a Order object to the js file and just save the order through it?
-*/
+/**
+ * This function fills the cart using the menu options selected by the user
+ */
 function fillCart() {
     if (!(localStorage.getItem("stored_entree") == ""  || localStorage.getItem("stored_entree") == null)) {
         document.getElementById('cart_content').insertAdjacentHTML('beforeend', `
@@ -289,13 +288,13 @@ for (let i = buttons.length - 2; i < buttons.length; i++) {
 }
 
 
+/**
+ * 1. Parse through cart
+ * 2. Set order values
+ * 3. Send order to database
+ * 4. Clear local storage
+ */
 function orderFunction(){
-    /**
-     * 1. Parse through cart
-     * 2. Set order values
-     * 3. Send order to database
-     * 4. Clear local storage
-     */
     //array of options
     console.log("Order Function Started");
     const Entrees =["Grain Bowl","Salad","Pita","Green & Grains"];
@@ -412,9 +411,7 @@ function orderFunction(){
         body: JSON.stringify({
             command,
         }),
-    })  .then((res) => {
-            return res.json();
-        })
+    })
 
     clearStorage();
 
@@ -456,7 +453,9 @@ function orderFunction(){
     //bring them back to entree page????
 }
 
-
+/**
+ * This function clears all the menu items in the cart that are stored in localStorage
+ */
 function clearStorage() {
     // localStorage.$reset();
     localStorage.clear();
@@ -464,22 +463,29 @@ function clearStorage() {
     localStorage.setItem("stored_protein", "");
     localStorage.setItem("stored_combo", "");
     localStorage.setItem("stored_topping1", "");
-    localStorage.setItem("stored_topping2","");
-    localStorage.setItem("stored_topping3","");
-    localStorage.setItem("stored_topping4","");
-
+    localStorage.setItem("stored_topping2", "");
+    localStorage.setItem("stored_topping3", "");
+    localStorage.setItem("stored_topping4", "");
+    localStorage.setItem("stored_dressing", "");
+    localStorage.setItem("stored_starter", "");
+    localStorage.setItem("stored_drink", "");
+    
     let d = document.getElementsByClassName('inner_order_content');
     for (let j = 0; j < d.length; j++) {
         //console.log(d[j].innerHTML);
         //console.log(buttons[j].innerHTML);
         //if (buttons[j].innerHTML == d[j].innerHTML) {
             d[j].parentNode.removeChild(d[j]);
+            j--;
             
         //}
     }
     console.log("localStorage cleared");
 }
 
+/**
+ * Resets all variables in localStorage to an empty string
+ */
 function clearTandS() {
     localStorage.setItem("stored_topping1", "");
     localStorage.setItem("stored_topping2", "");

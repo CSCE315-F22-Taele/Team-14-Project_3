@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Log-in</title>
+    <title class="misc">Log-in</title>
     
     <link rel="icon" type="img/png" size="32x32" href="/img/P&H logo.png"/>
     <link
@@ -27,15 +27,15 @@
           <div class="text_field">
             <input type="text" required />
             <span></span>
-            <label>Username</label>
+            <label class="misc">Username</label>
           </div>
           <div class="text_field">
             <input type="text" required />
             <span></span>
-            <label>Password</label>
+            <label class="misc">Password</label>
           </div>
           <div class="login_button_wrapper">
-            <input type="submit" value="Log-in" />
+            <button type="submit" class="login misc" >Log-in</button>
             <!-- put the login button that comes with the api below here instead of the link below -->
             <a href="#" class="google"><button class="google">Sign in with Google</button></a>
           </div>
@@ -46,7 +46,45 @@
         <a href="entree"><button onclick="clearStorage()" class="order_btn">Order Now!</button></a>
       </div>
     </div>
-    
-    <script src="/js/google_translate.js"></script>
+    <script>
+      lang=localStorage.getItem("Language");
+        if(lang!=undefined && lang!='en'){
+          translateClass("order_btn");
+          translateClass("customer_text");
+          translateClass("google");
+          translateClass("title");
+          translateClass("login misc");
+          translateClass("order_btn");
+          translateClass("misc");
+        }
+
+        function translateClass(className){
+            elements =document.getElementsByClassName(className);
+            console.log(elements);
+            for( i=0; i<elements.length;i++){
+              translate(elements[i]);
+            }
+        }
+        function translate(element){
+          text=element.innerText;
+          //test =document.getElementById("test").innerText,localStorage.getItem("Language");
+          console.log("Translating: "+text);
+          fetch('/translate', {
+              method: 'POST',
+              headers: {
+                  Authorization: 'Bearer abcdxyz',
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                  "Language": lang,
+                  "Text": text
+              }),
+          }) .then((res)=>res.json()) .then(x =>{
+                // console.log(x)
+                element.innerHTML=x;
+                //return x;
+          })
+        }
+    </script>
   </body>
 </html>

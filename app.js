@@ -31,8 +31,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // const provider = new firebaseAuth.GoogleAuthProvider();
 
-const hostname = 'localhost';
-const port = 3000;
+// const hostname = 'localhost';
+// const port = 3000;
+const PORT = process.env.PORT || 3030;
 
 const pool = new Pool({
     user: process.env.PSQL_USER,
@@ -449,11 +450,44 @@ app.get('/restock', (req, res) => {
 
 //app.use('/public', express.static('public'));
 
-app.listen(port, hostname, () => {
-    console.log(`Pom&Honey Web App listening at http://localhost:${port}`);
+// app.listen(port, hostname, () => {
+//     console.log(`Pom&Honey Web App listening at http://localhost:${port}`);
+// });
+app.listen(PORT, () => {
+    console.log(`Pom&Honey Web App listening at http://localhost:${PORT}`);
 });
 /*app.listen(port, orderFunction(),() =>{
     console.log('OrderFunction Recognized');
 });*/
+// --------API STUFF-------
+const {Translate} = require('@google-cloud/translate').v2;
+require('dotenv').config();
 
+const CREDENTIALS = JSON.parse(process.env.CREDENTIALS);
+
+const translate =new Translate({
+    credentials:CREDENTIALS,
+    projectId: CREDENTIALS.projectId
+});
+
+app.post('/translate',(req,res)=>{
+    translateText(req.body.Text,req.body.Language).then((text) =>{
+        res.set('Content-Type', 'application/JSON')
+
+
+        res.send(JSON.stringify(text));
+    })
+
+
+});
+
+const translateText = async(text,targetLanguage)=>{
+    try{
+        let [response] = await translate.translate(text, targetLanguage);
+        return response;
+    }catch(error){
+        console.log('Error translating text: ',error);
+        return 0;
+    }
+};
 

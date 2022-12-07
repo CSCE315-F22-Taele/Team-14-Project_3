@@ -29,12 +29,12 @@
           <div class="order_content" id="cart_content"></div>
         </div> 
         <div class="total">
-          <h2 id="price"></h2>
+          <h2 class="misc" id="price"></h2>
         </div>
       </div>
       <div class="placeorder_nav">
-        <button type = "submit" onclick="orderFunction()" class="submit_order" id = "submit_order">Place Order!</button>
-        <a href = "entree"><button class = "submit_order" id = "restart_order">Restart Order</button><a>
+        <button type = "submit" onclick="orderFunction()" class="submit_order misc" id = "submit_order">Place Order!</button>
+        <a href = "entree"><button class = "submit_order misc" id = "restart_order">Restart Order</button><a>
       </div>
 
     </div>
@@ -59,6 +59,46 @@
       document.getElementById("price").innerHTML = "Total: $"+price;
     </script>
     <script src="/js/client.js"></script>
+    <script>
+      lang=localStorage.getItem("Language");
+        if(lang!=undefined && lang!='en'){
+          translateClass("label");
+          translateClass("title");
+          translateClass("order_content");
+          translateClass("order_title");
+          translateClass("nav_btn");
+          translateClass("misc");
+          translateClass("prompt")
+        }
+
+        function translateClass(className){
+            elements =document.getElementsByClassName(className);
+            console.log(elements);
+            for( i=0; i<elements.length;i++){
+              translate(elements[i]);
+            }
+        }
+        function translate(element){
+          text=element.innerText;
+          //test =document.getElementById("test").innerText,localStorage.getItem("Language");
+          console.log("Translating: "+text);
+          fetch('/translate', {
+              method: 'POST',
+              headers: {
+                  Authorization: 'Bearer abcdxyz',
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                  "Language": lang,
+                  "Text": text
+              }),
+          }) .then((res)=>res.json()) .then(x =>{
+                // console.log(x)
+                element.innerHTML=x;
+                //return x;
+          })
+        }
+    </script>
     <!-- <script src="../app.js"></script> -->
 </body>
 </html>
