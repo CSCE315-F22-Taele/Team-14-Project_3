@@ -450,7 +450,7 @@ app.get('/restock', (req, res) => {
 
 //app.use('/public', express.static('public'));
 
-app.listen(PORT, hostname, () => {
+app.listen(PORT, () => {
     console.log(`Pom&Honey Web App listening at http://localhost:${PORT}`);
 });
 /*app.listen(port, orderFunction(),() =>{
