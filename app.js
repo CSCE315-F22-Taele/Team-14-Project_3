@@ -9,9 +9,17 @@ const app = express();
 const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
 const session = require('express-session');
+const jwt_decode = require('jwt-decode');
 var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
 app.use( bodyParser.json() ); 
 app.use(bodyParser.urlencoded({ extended: true }));
+const {OAuth2Client} = require('google-auth-library');
+const CLIENT_ID = '1009654806650-qn41odg2ro13ks88lehcgoc7m2qt3lvm.apps.googleusercontent.com';
+const client = new OAuth2Client(CLIENT_ID);
+
+app.use(express.json());
+app.use(cookieParser());
 
 //implement firebase
 // const firebase = require('firebase/app');
@@ -34,6 +42,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // const hostname = 'localhost';
 // const port = 3000;
 const PORT = process.env.PORT || 3030;
+// const PORT = 3000;
 
 const pool = new Pool({
     user: process.env.PSQL_USER,
@@ -104,12 +113,73 @@ app.post('/placeorder', (req, res)=> {
         });
 });
 // --------------- MANAGER RELATED -------------------------
-app.get('/manager', (req, res) => {
+app.get('/manager', checkAuthenticated, (req, res) => {
     res.render('manager');
 });
+app.post('/login', (req, res) => {
+    // res.render('manager');
+    // console.log(req.body);
+    let token = req.body.credential;
+    const responsePayload = jwt_decode(req.body.credential);
+    // console.log("ID: " + responsePayload.sub);
+    // console.log('Full Name: ' + responsePayload.name);
+    // console.log('Given Name: ' + responsePayload.given_name);
+    // console.log('Family Name: ' + responsePayload.family_name);
+    // console.log("Image URL: " + responsePayload.picture);
+    // console.log("Email: " + responsePayload.email);
+    // console.log("ID Token: " + token);
+    console.log(req.body);
+    async function verify() {
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+            // Or, if multiple clients access the backend:
+            //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+        });
+        const payload = ticket.getPayload();
+        const userid = payload['sub'];
+    }
+    verify()
+        .then(() => {
+            res.cookie('session-token', token);
+            // res.send('success');
+            res.redirect('manager');
+        })
+        .catch(console.error);
+});
 
+function checkAuthenticated(req, res, next) {
+    console.log('Authenticating...');
+    let token = req.cookies['session-token'];
 
-app.get('/inventory', (req, res) => {
+    let user = {};
+    async function verify() {
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: CLIENT_ID,
+        });
+        const payload = ticket.getPayload();
+        user['name'] = payload['name'];
+        user['email'] = payload['email'];
+        user['picture'] = payload['picture'];
+    }
+    verify()
+        .then(() => {
+            console.log('Authenticated');
+            next();
+        })
+        .catch(err => {
+            console.log('Redirecting to login...');
+            res.redirect('login');
+        });
+}
+
+app.get('/logout', (req, res) => {
+    res.clearCookie('session-token');
+    res.redirect('login');
+});
+
+app.get('/inventory', checkAuthenticated, (req, res) => {
     Entrees = []
     //Dressings = []
   
@@ -154,7 +224,7 @@ app.get('/inventory', (req, res) => {
                 });
         });
 });
-app.get('/inventory-edit',(req,res) => {
+app.get('/inventory-edit', checkAuthenticated, (req,res) => {
     res.render('inventory-edit');
 });
 app.post('/inventory-edit',(req, res) => {
@@ -205,7 +275,7 @@ app.post('/inventory-edit',(req, res) => {
     }
 });
 
-app.get('/sales', (req, res) => {
+app.get('/sales', checkAuthenticated, (req, res) => {
     Sales = []
     res.render('sales',Sales);
 
@@ -277,7 +347,7 @@ app.post('/sales',(req,res)=>{
          });
 });
 
-app.get('/excess', (req, res) => {
+app.get('/excess', checkAuthenticated, (req, res) => {
     Excess = []
     res.render('excess',Excess);
 });
@@ -403,7 +473,7 @@ app.post('/excess',(req,res)=>{
     });
 });
 
-app.get('/restock', (req, res) => {
+app.get('/restock', checkAuthenticated, (req, res) => {
     Stock = []
   
     pool

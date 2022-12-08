@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
     <title class="misc">Log-in</title>
     
     <link rel="icon" type="img/png" size="32x32" href="/img/P&H logo.png"/>
@@ -37,7 +38,62 @@
           <div class="login_button_wrapper">
             <button type="submit" class="login misc" >Log-in</button>
             <!-- put the login button that comes with the api below here instead of the link below -->
-            <a href="#" class="google"><button class="google">Sign in with Google</button></a>
+            <!-- <a href="#" class="google"><button class="google">Sign in with Google</button></a> -->
+            <script src="https://accounts.google.com/gsi/client" async defer></script>
+            <!-- <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
+            <script>
+                function handleCredentialResponse(response) {
+                    console.log("Encoded JWT ID token: " + response.credential);
+
+                    const responsePayload = jwt_decode(response.credential);
+                    console.log("ID: " + responsePayload.sub);
+                    console.log('Full Name: ' + responsePayload.name);
+                    console.log('Given Name: ' + responsePayload.given_name);
+                    console.log('Family Name: ' + responsePayload.family_name);
+                    console.log("Image URL: " + responsePayload.picture);
+                    console.log("Email: " + responsePayload.email);
+                }
+                window.onload = function () {
+                    google.accounts.id.initialize({
+                        client_id: "1009654806650-qn41odg2ro13ks88lehcgoc7m2qt3lvm.apps.googleusercontent.com",
+                        callback: handleCredentialResponse,
+                        login_uri: "http://localhost:3000/manager"
+                    });
+                    google.accounts.id.renderButton(
+                        document.getElementById("buttonDiv"),
+                        { theme: "outline", size: "large" }  // customization attributes
+                    );
+                    google.accounts.id.prompt(); // also display the One Tap dialog
+                }
+            </script>
+            <div id="buttonDiv"></div>  -->
+            <div id="g_id_onload"
+                data-client_id="1009654806650-qn41odg2ro13ks88lehcgoc7m2qt3lvm.apps.googleusercontent.com"
+                data-login_uri="https://pomandhoney-r5ro.onrender.com/login"
+                data-auto_prompt="false">
+            </div>
+            <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js">
+                function handleCredentialResponse(response) {
+                    // decodeJwtResponse() is a custom function defined by you
+                    // to decode the credential response.
+                    const responsePayload = jwt_decode(response.credential);
+
+                    console.log("ID: " + responsePayload.sub);
+                    console.log('Full Name: ' + responsePayload.name);
+                    console.log('Given Name: ' + responsePayload.given_name);
+                    console.log('Family Name: ' + responsePayload.family_name);
+                    console.log("Image URL: " + responsePayload.picture);
+                    console.log("Email: " + responsePayload.email);
+                }
+            </script>
+            <div class="g_id_signin"
+                data-type="standard"
+                data-size="large"
+                data-theme="outline"
+                data-text="sign_in_with"
+                data-shape="rectangular"
+                data-logo_alignment="left">
+            </div>
           </div>
         </form>
       </div>
