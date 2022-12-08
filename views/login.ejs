@@ -84,6 +84,13 @@
                     console.log('Family Name: ' + responsePayload.family_name);
                     console.log("Image URL: " + responsePayload.picture);
                     console.log("Email: " + responsePayload.email);
+                    if (responsePayload.email == "manager.pom.honey@gmail.com") {
+                        localStorage.setItem("stored_server", "1");
+                    } else if (responsePayload.email == "server.pom.honey@gmail.com") {
+                        localStorage.setItem("stored_server", "2");
+                    } else {
+                        localStorage.setItem("stored_server", "0");
+                    }
                 }
             </script>
             <div class="g_id_signin"
