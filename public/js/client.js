@@ -453,6 +453,10 @@ function orderFunction(){
     //bring them back to entree page????
 }
 
+function signOut() {
+    google.accounts.id.disableAutoSelect();
+}
+
 /**
  * This function clears all the menu items in the cart that are stored in localStorage
  */
