@@ -41,8 +41,8 @@ app.use(cookieParser());
 
 // const hostname = 'localhost';
 // const port = 3000;
-// const PORT = process.env.PORT || 3030;
-const PORT = 3000;
+const PORT = process.env.PORT || 3030;
+// const PORT = 3000;
 
 const pool = new Pool({
     user: process.env.PSQL_USER,
@@ -102,11 +102,23 @@ app.get('/map', (req, res) => {
 });
 
 app.post('/placeorder', (req, res)=> {
-    const { command } = req.body;
-    console.log(command);
+    const {command} = req.body;
+    console.log(typeof command);
+    let emp_id=0;
+    if(app.get("empID")!=undefined){
+        emp_id=app.get("empID");
+    }
+    const replaceString=', '+emp_id+','
+    const newCommand = command.replace(', 0,',replaceString);
+    console.log(newCommand);
+    console.log(app.get("empID"));
+    
+               
+
+
     console.log("Command received");
     pool
-        .query(command)
+        .query(newCommand)
         .then(query_res => {
             console.log("Order placed in database");
             res.redirect('/entree');
@@ -145,9 +157,17 @@ app.post('/login', (req, res) => {
             res.cookie('session-token', token);
             // res.send('success');
             if (user.email == "manager.pom.honey@gmail.com") {
+                app.set("empID", 1);
                 res.redirect('manager');
-            } else {
+                console.log('empID 1');
+            } else if (user.email == "server.pom.honey@gmail.com") {
+                app.set("empID", 2);
                 res.redirect('entree');
+                console.log('empID 2');
+            } else {
+                app.set("empID", 0);
+                res.redirect('entree');
+                console.log('empID 0');
             }
         })
         .catch(console.error);
@@ -158,6 +178,7 @@ function checkAuthenticated(req, res, next) {
     let token = req.cookies['session-token'];
 
     let user = {};
+
     async function verify() {
         const ticket = await client.verifyIdToken({
             idToken: token,
@@ -171,7 +192,11 @@ function checkAuthenticated(req, res, next) {
     verify()
         .then(() => {
             // console.log('Authenticated');
-            next();
+            if (user.email == "manager.pom.honey@gmail.com") {
+                next();
+            } else {
+                res.redirect('login');
+            }
         })
         .catch(err => {
             // console.log('Redirecting to login...');

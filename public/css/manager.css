@@ -42,6 +42,10 @@ body{
     color:black;
     box-shadow: -16px 21px 23px -5px rgba(0,0,0,0.71);
 }
+.item_btn:hover{
+    background-color:rgb(0, 125, 0);
+    color:white;
+}
 .nav_bar{
     margin-top:5rem;
     width:100%;
@@ -59,7 +63,8 @@ body{
 }
 #manager_nav{
     position:relative;
-    margin-top:8rem;
+    margin-top:5rem;
+    padding-bottom:2rem;
 }
 #back{
     background-color:rgb(160, 8, 8);
@@ -93,12 +98,14 @@ table thead tr td{
     width:600px;
     text-align:center;
     padding:1rem;
+    font-weight:700;
+    font-size:1rem;
 }
 .row_item{
     text-align:center;
     background-color:white;
     font-size:14px;
-    padding:4px;
+    padding:7px;
 }
 #proceed{
     background-color:rgb(3, 102, 3);

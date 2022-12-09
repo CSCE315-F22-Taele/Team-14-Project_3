@@ -14,12 +14,14 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
+    flex-direction:column;
 }
 .login_card{
     background-color:white;
     border-radius:1rem;
     width:450px;
     box-shadow:0 0 50px 5px hsl(229deg 27% 23% / 52%);
+    margin-top:7rem;
 }
 .title{
     padding: 25px 0px;
@@ -99,9 +101,8 @@ body{
 }
 .login_button_wrapper{
     display:flex;
-    align-items:center;
     justify-content:center;
-    gap:25px;
+    gap:10px;
 }
 .login{
     border-radius:5px;
@@ -109,9 +110,8 @@ body{
     font-size:1.125rem;
     height:55px;
     background:#2691d9;
-    margin-bottom:40px;
     color:white;
-    width:100%;
+    width:60%;
 }
 .login:hover{
     background:#439dda;
@@ -122,9 +122,33 @@ body{
     border-radius:5px;
     border:none;
     font-size:1.125rem;
-    height:55px;
-    background:#d3d6d8;
+    height:50px;
+    background:#6aa9ce;
     margin-bottom:40px;
     color:black;
-    width:100%;
+    width:auto;
+    text-align:center;
+}
+.google:hover{
+    background:#439dda;
+    transform:translateY(-5px);
+    cursor:pointer;
+}
+#back{
+    background-color:rgb(160, 8, 8);
+    color:white;
+    font-size:20px;
+    padding:1rem 0.8rem;
+    border-radius:0.5em;
+    border:none;
+    font-size:1.25rem;
+    color:white;
+    box-shadow: -16px 21px 23px -5px rgba(0,0,0,0.71);
+    margin-top:7rem;
+
+}
+#back:hover{
+    background-color:rgb(194, 45, 45);
+    transform:translateY(-5px);
+    cursor:pointer;
 }
