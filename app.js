@@ -41,8 +41,8 @@ app.use(cookieParser());
 
 // const hostname = 'localhost';
 // const port = 3000;
-const PORT = process.env.PORT || 3030;
-// const PORT = 3000;
+// const PORT = process.env.PORT || 3030;
+const PORT = 3000;
 
 const pool = new Pool({
     user: process.env.PSQL_USER,
@@ -128,7 +128,8 @@ app.post('/login', (req, res) => {
     // console.log("Image URL: " + responsePayload.picture);
     // console.log("Email: " + responsePayload.email);
     // console.log("ID Token: " + token);
-    console.log(req.body);
+    // console.log(req.body);
+    let user = {};
     async function verify() {
         const ticket = await client.verifyIdToken({
             idToken: token,
@@ -137,19 +138,23 @@ app.post('/login', (req, res) => {
             //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
         });
         const payload = ticket.getPayload();
-        const userid = payload['sub'];
+        user['email'] = payload['email'];
     }
     verify()
         .then(() => {
             res.cookie('session-token', token);
             // res.send('success');
-            res.redirect('manager');
+            if (user.email == "manager.pom.honey@gmail.com") {
+                res.redirect('manager');
+            } else {
+                res.redirect('entree');
+            }
         })
         .catch(console.error);
 });
 
 function checkAuthenticated(req, res, next) {
-    console.log('Authenticating...');
+    // console.log('Authenticating...');
     let token = req.cookies['session-token'];
 
     let user = {};
@@ -165,11 +170,11 @@ function checkAuthenticated(req, res, next) {
     }
     verify()
         .then(() => {
-            console.log('Authenticated');
+            // console.log('Authenticated');
             next();
         })
         .catch(err => {
-            console.log('Redirecting to login...');
+            // console.log('Redirecting to login...');
             res.redirect('login');
         });
 }

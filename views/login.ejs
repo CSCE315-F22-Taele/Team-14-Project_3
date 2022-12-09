@@ -67,12 +67,18 @@
                 }
             </script>
             <div id="buttonDiv"></div>  -->
-            <div id="g_id_onload"
+            <!-- <div id="g_id_onload"
                 data-client_id="1009654806650-qn41odg2ro13ks88lehcgoc7m2qt3lvm.apps.googleusercontent.com"
                 data-login_uri="https://pomandhoney-r5ro.onrender.com/login"
                 data-auto_prompt="false">
+            </div> -->
+            <div id="g_id_onload"
+                data-client_id="1009654806650-qn41odg2ro13ks88lehcgoc7m2qt3lvm.apps.googleusercontent.com"
+                data-login_uri="http://localhost:3000/login"
+                data-auto_prompt="false">
             </div>
             <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js">
+                const email = "";
                 function handleCredentialResponse(response) {
                     // decodeJwtResponse() is a custom function defined by you
                     // to decode the credential response.
@@ -84,14 +90,16 @@
                     console.log('Family Name: ' + responsePayload.family_name);
                     console.log("Image URL: " + responsePayload.picture);
                     console.log("Email: " + responsePayload.email);
-                    if (responsePayload.email == "manager.pom.honey@gmail.com") {
-                        localStorage.setItem("stored_server", "1");
-                    } else if (responsePayload.email == "server.pom.honey@gmail.com") {
-                        localStorage.setItem("stored_server", "2");
-                    } else {
-                        localStorage.setItem("stored_server", "0");
-                    }
+                    email = responsePayload.email;
                 }
+                if (email == "manager.pom.honey@gmail.com") {
+                    localStorage.setItem("stored_server", "1");
+                } else if (email == "server.pom.honey@gmail.com") {
+                    localStorage.setItem("stored_server", "2");
+                } else {
+                    localStorage.setItem("stored_server", "0");
+                }
+
             </script>
             <div class="g_id_signin"
                 data-type="standard"

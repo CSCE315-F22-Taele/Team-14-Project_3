@@ -398,6 +398,7 @@ function orderFunction(){
     let month = date.getMonth()+1;
     let day =date.getDate();
     let fullDate = year + "-" + month + "-" + day; 
+    let server_num=localStorage.getItem("stored_server");
     const command="INSERT INTO \"Order\" (\"Date\", \"Server ID\", \"Total Amount\", \"Entree ID\", \"Topping IDs\", \"Dressing ID\", \"Starter ID\", \"Drinks ID\" ) values ('" + fullDate + "', "+ 0 +"," + total + "," + entreeCode + ", ARRAY[" + toppingChoice.toString() +"], "  +Dressing +", " + Starter+", " + Drink+ ");";
     // console.log(command);
     console.log("This Client Works");
